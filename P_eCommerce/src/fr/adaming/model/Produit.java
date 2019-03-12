@@ -45,8 +45,7 @@ public class Produit implements Serializable{
 	@OneToMany(mappedBy="produit")
 	private List<LigneCommande> listeLigneCommande;
 
-	@ManyToMany(mappedBy="listeProduit")
-	private List<Administrateur> listeAdmin;
+
 	//déclaration des 3 constructeurs
 	public Produit() {
 		super();
@@ -137,12 +136,6 @@ public class Produit implements Serializable{
 	}
 	
 	
-	public List<Administrateur> getListeAdmin() {
-		return listeAdmin;
-	}
-	public void setListeAdmin(List<Administrateur> listeAdmin) {
-		this.listeAdmin = listeAdmin;
-	}
 	@Override
 	public String toString() {
 		return "Produit [idProduit=" + idProduit + ", designation=" + designation + ", description=" + description

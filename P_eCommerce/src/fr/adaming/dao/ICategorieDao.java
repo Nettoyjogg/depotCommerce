@@ -1,16 +1,20 @@
 package fr.adaming.dao;
 
+import java.util.List;
+
 import fr.adaming.model.Administrateur;
 import fr.adaming.model.Categorie;
 
 public interface ICategorieDao {
 	
-	public Categorie ajouterCategorieDao(Categorie ca, Administrateur admin);
+	public List<Categorie> afficherCategorie(Administrateur admin);
+	
+	public Categorie ajouterCategorieDao(Categorie ca);
 			
-	public Categorie modifierCategorieDao(Categorie ca, Administrateur admin);
+	public int modifierCategorieDao(Categorie ca);
 	
-	public int supprimerCategorieDao(Categorie ca, Administrateur admin);
+	public int supprimerCategorieDao(Categorie ca);
 	
-	public Categorie consulterCategorieDao(Categorie ca, Administrateur admin);
+	public Categorie consulterCategorieDao(Categorie ca);
 
 }

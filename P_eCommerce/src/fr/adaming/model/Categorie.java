@@ -32,8 +32,7 @@ public class Categorie implements Serializable{
 	//transformation de l'association UML en JAVA
 	@OneToMany(mappedBy="categorie")
 	private List<Produit> listeProduit;
-	@ManyToMany(mappedBy="listeCategorie")
-	private List<Administrateur> listeAdmin;
+
 	//déclaration des 3 constructeurs
 	public Categorie() {
 		super();
@@ -87,12 +86,7 @@ public class Categorie implements Serializable{
 		this.listeProduit = listeProduit;
 	}
 	
-	public List<Administrateur> getListeAdmin() {
-		return listeAdmin;
-	}
-	public void setListeAdmin(List<Administrateur> listeAdmin) {
-		this.listeAdmin = listeAdmin;
-	}
+
 	//to string
 	@Override
 	public String toString() {

@@ -31,12 +31,7 @@ public class Administrateur implements Serializable{
 	private String mdp;
 	
 	// transformation de l'association UML en JAVA
-	@ManyToMany
-	@JoinTable(name="assoc_produit_admin", joinColumns=@JoinColumn(name="id_admin"),inverseJoinColumns=@JoinColumn(name="id_p"))
-	private List<Produit> listeProduit;
-	@ManyToMany
-	@JoinTable(name="assoc_categorie_admin", joinColumns=@JoinColumn(name="id_admin"),inverseJoinColumns=@JoinColumn(name="id_ca"))
-	private List<Categorie> listeCategorie;
+	
 	//déclaration des constructeurs
 	public Administrateur() {
 		super();
@@ -89,20 +84,6 @@ public class Administrateur implements Serializable{
 		this.mdp = mdp;
 	}
 	
-	
-	public List<Produit> getListeProduit() {
-		return listeProduit;
-	}
-	public void setListeProduit(List<Produit> listeProduit) {
-		this.listeProduit = listeProduit;
-	}
-	
-	public List<Categorie> getListeCategorie() {
-		return listeCategorie;
-	}
-	public void setListeCategorie(List<Categorie> listeCategorie) {
-		this.listeCategorie = listeCategorie;
-	}
 	@Override
 	public String toString() {
 		return "Administrateur [idAdmin=" + idAdmin + ", nomAdmin=" + nomAdmin + ", prenomAdmin=" + prenomAdmin
