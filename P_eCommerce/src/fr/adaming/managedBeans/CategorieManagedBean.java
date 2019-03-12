@@ -91,7 +91,7 @@ public class CategorieManagedBean {
 
 	}
 
-	public String supprEtudiant() {
+	public String supprimerCategorieMB() {
 		int verif = caService.supprimerCategorieService(categorie, administrateur);
 		if (verif != 0) {
 			// Récuperer la liste
@@ -108,7 +108,7 @@ public class CategorieManagedBean {
 
 	}
 
-	public void searchEtudiant() {
+	public void rechercherCategorieParIdMB() {
 		this.categorie = caService.consulterCategorieParIDService(categorie, administrateur);
 		if (categorie == null) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La catégorie est null"));
@@ -116,6 +116,10 @@ public class CategorieManagedBean {
 		} else {
 			indice = true;
 		}
+	}
+	
+	public void modifierCategorieAutoMB() {
+		this.categorie=caService.consulterCategorieParIDService(categorie, administrateur);
 	}
 
 }
