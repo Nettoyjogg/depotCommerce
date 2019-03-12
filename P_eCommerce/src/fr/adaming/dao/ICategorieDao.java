@@ -2,12 +2,14 @@ package fr.adaming.dao;
 
 import java.util.List;
 
-import fr.adaming.model.Administrateur;
+import javax.ejb.Local;
+
 import fr.adaming.model.Categorie;
 
+@Local
 public interface ICategorieDao {
 	
-	public List<Categorie> afficherCategorie(Administrateur admin);
+	public List<Categorie> afficherCategorieDao();
 	
 	public Categorie ajouterCategorieDao(Categorie ca);
 			
@@ -15,6 +17,6 @@ public interface ICategorieDao {
 	
 	public int supprimerCategorieDao(Categorie ca);
 	
-	public Categorie consulterCategorieDao(Categorie ca);
+	public Categorie consulterCategorieParIDDao(Categorie ca);
 
 }

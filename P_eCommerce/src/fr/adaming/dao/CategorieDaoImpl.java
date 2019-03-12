@@ -2,35 +2,34 @@ package fr.adaming.dao;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import fr.adaming.model.Administrateur;
 import fr.adaming.model.Categorie;
 
+@Stateless
 public class CategorieDaoImpl implements ICategorieDao {
 	@PersistenceContext(unitName = "pu_commerce")
 
 	private EntityManager em;
 
 	@Override
-	public List<Categorie> afficherCategorie(Administrateur admin) {
+	public List<Categorie> afficherCategorieDao() {
 		// Requete
-		String req = "SELECT ca FROM Categorie as ca WHERE ca.Administrateur.idAdmin=:pId";
+		String req = "SELECT ca FROM Categorie as ca";
 
 		// Répérer un objet query
 		Query query = em.createQuery(req);
 
-		// Passage des params
-		query.setParameter("pId", admin.getIdAdmin());
 		return query.getResultList();
 	}
 
 	@Override
 	public Categorie ajouterCategorieDao(Categorie ca) {
 		em.persist(ca);
-		return ca;		
+		return ca;
 	}
 
 	@Override
@@ -42,19 +41,20 @@ public class CategorieDaoImpl implements ICategorieDao {
 		req.setParameter("pDescription", ca.getDescription());
 		req.setParameter("pId", ca.getIdCategorie());
 		int verif = req.executeUpdate();
-		return verif;		
+		return verif;
 	}
 
 	@Override
 	public int supprimerCategorieDao(Categorie ca) {
-		// TODO Auto-generated method stub
-		return 0;
+		Query req = em.createQuery("DELETE FROM Categorie as ca WHERE ca.idCategorie=:pId");
+		req.setParameter("pId", ca.getIdCategorie());
+		int verif = req.executeUpdate();
+		return verif;
 	}
 
 	@Override
-	public Categorie consulterCategorieDao(Categorie ca) {
-		// TODO Auto-generated method stub
-		return null;
+	public Categorie consulterCategorieParIDDao(Categorie ca) {
+		return em.find(Categorie.class, ca.getIdCategorie());
 	}
 
 }
