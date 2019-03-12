@@ -1,15 +1,39 @@
 package fr.adaming.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
 
-public class Categorie {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="categories")
+public class Categorie implements Serializable{
 //déclaration des attributs
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_ca")
 	private int idCategorie;
+	@Column(name = "nom_ca")
 	private String nomCategorie;
+	@Column(name = "photo_ca")
 	private byte[] photo;
+	@Column(name = "description_ca")
 	private String description;
-	//transformation de l'association UML en JAVA
 	
+	
+	//transformation de l'association UML en JAVA
+	@OneToMany(mappedBy="categorie")
+	private List<Produit> listeProduit;
+	@ManyToMany(mappedBy="listeCategorie")
+	private List<Administrateur> listeAdmin;
 	//déclaration des 3 constructeurs
 	public Categorie() {
 		super();
@@ -54,6 +78,21 @@ public class Categorie {
 		this.description = description;
 	}
 	
+	
+	
+	public List<Produit> getListeProduit() {
+		return listeProduit;
+	}
+	public void setListeProduit(List<Produit> listeProduit) {
+		this.listeProduit = listeProduit;
+	}
+	
+	public List<Administrateur> getListeAdmin() {
+		return listeAdmin;
+	}
+	public void setListeAdmin(List<Administrateur> listeAdmin) {
+		this.listeAdmin = listeAdmin;
+	}
 	//to string
 	@Override
 	public String toString() {

@@ -5,7 +5,12 @@
 	<jta-data-source>java:/commerce</jta-data-source>
 	
 	<!--  Enumérer les classes persistantes -->
-	<class></class>
+	<class>fr.adaming.model.Client</class>
+	<class>fr.adaming.model.Administrateur</class>
+	<class>fr.adaming.model.Categorie</class>
+	<class>fr.adaming.model.Commande</class>
+	<class>fr.adaming.model.LigneCommande</class>
+	<class>fr.adaming.model.Produit</class>
 
 	
 	<!-- Spécifier les prop Hibernate -->

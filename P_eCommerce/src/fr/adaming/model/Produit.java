@@ -1,18 +1,52 @@
 package fr.adaming.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
 
-public class Produit {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="produits")
+public class Produit implements Serializable{
 //déclaration des attributs
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_p")
 	private int idProduit;
+	@Column(name = "designation_p")
 	private String designation;
+	@Column(name = "description_p")
 	private String description;
+	@Column(name = "prix_p")
 	private double prix;
+	@Column(name = "quantite_p")
 	private int quantite;
+	@Column(name = "selectionne_p")
 	private boolean selectionne;
+	@Column(name = "photo_p")
 	private byte[] photo;
 	
 	//transformation de l'association UML en JAVA
+	@ManyToOne
+	@JoinColumn(name="categorie_p",referencedColumnName="id_ca")
+	private Categorie categorie;
+	@OneToMany(mappedBy="produit")
+	private List<LigneCommande> listeLigneCommande;
+
+	@ManyToMany(mappedBy="listeProduit")
+	private List<Administrateur> listeAdmin;
 	//déclaration des 3 constructeurs
 	public Produit() {
 		super();
@@ -86,6 +120,29 @@ public class Produit {
 	
 	
 	
+	public Categorie getCategorie() {
+		return categorie;
+	}
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+	
+	
+	
+	public List<LigneCommande> getListeLigneCommande() {
+		return listeLigneCommande;
+	}
+	public void setListeLigneCommande(List<LigneCommande> listeLigneCommande) {
+		this.listeLigneCommande = listeLigneCommande;
+	}
+	
+	
+	public List<Administrateur> getListeAdmin() {
+		return listeAdmin;
+	}
+	public void setListeAdmin(List<Administrateur> listeAdmin) {
+		this.listeAdmin = listeAdmin;
+	}
 	@Override
 	public String toString() {
 		return "Produit [idProduit=" + idProduit + ", designation=" + designation + ", description=" + description

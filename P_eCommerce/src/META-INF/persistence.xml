@@ -2,10 +2,15 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="pu_commerce" transaction-type="JTA">
 	<!-- Spécifier la data source -->
-<!-- 	<jta-data-source>java:/commerce</jta-data-source> -->
+	<jta-data-source>java:/commerce</jta-data-source>
 	
 	<!--  Enumérer les classes persistantes -->
-	
+	<class>fr.adaming.model.Client</class>
+	<class>fr.adaming.model.Administrateur</class>
+	<class>fr.adaming.model.Categorie</class>
+	<class>fr.adaming.model.Commande</class>
+	<class>fr.adaming.model.LigneCommande</class>
+	<class>fr.adaming.model.Produit</class>
 
 	
 	<!-- Spécifier les prop Hibernate -->
