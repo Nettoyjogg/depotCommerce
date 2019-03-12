@@ -17,7 +17,7 @@
 	<h:form id="idform">
 		<h:panelGrid columns="2">
 		Id: <h:inputText value="#{caMB.categorie.idCategorie}">
-				<p:ajax event="keyup" listener="#{caMb.modifierCategorieAutoMB}" update="idform" />
+				<p:ajax event="keyup" listener="#{caMB.modifierCategorieAutoMB}" update="idform" />
 				<!-- Event : Blur  -->
 			</h:inputText>				
 		Nom: <h:inputText value="#{caMB.categorie.nomCategorie}" />
@@ -25,7 +25,7 @@
 		Description: <h:inputText value="#{caMB.categorie.description}" />
 
 			<h:commandButton value="modifier"
-				action="#{ caMB.modifierCategorieMB}"></h:commandButton>
+				action="#{caMB.modifierCategorieMB}"></h:commandButton>
 		</h:panelGrid>
 	</h:form>
 	<h1 style="color: red; text-align: center">

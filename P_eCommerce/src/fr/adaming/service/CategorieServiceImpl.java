@@ -50,8 +50,9 @@ public class CategorieServiceImpl implements ICategorieService {
 	@Override
 	public Categorie consulterCategorieParIDService(Categorie ca, Administrateur admin) {
 		Categorie caFind = caDao.consulterCategorieParIDDao(ca);
+
 		// Vérifier si l'étudiant est celui du formateur
-		if (caFind != null && caFind.getAdministrateur().getIdAdmin() == admin.getIdAdmin()) {
+		if (caFind != null && admin.getIdAdmin() != 0) {
 			return caFind;
 		} else {
 
