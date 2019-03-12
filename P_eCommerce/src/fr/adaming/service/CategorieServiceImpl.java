@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-
 import fr.adaming.dao.ICategorieDao;
 import fr.adaming.model.Administrateur;
 import fr.adaming.model.Categorie;
