@@ -1,5 +1,6 @@
 package fr.adaming.dao;
 
+import fr.adaming.model.Administrateur;
 import fr.adaming.model.Categorie;
 
 public interface ICategorieDao {
