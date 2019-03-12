@@ -10,42 +10,53 @@ import fr.adaming.model.Categorie;
 
 @Stateful
 public class CategorieServiceImpl implements ICategorieService {
-	
+
 	// Transfo UML Java
 	@EJB
 	ICategorieDao caDao;
 
 	@Override
 	public List<Categorie> afficherCategorieService(Administrateur admin) {
-		// Il faudra redéfinir pour les admins
-		return caDao.afficherCategorieDao();
+		if (admin.getIdAdmin() != 0) {
+			return caDao.afficherCategorieDao();
+		}
+		return null;
 	}
 
 	@Override
 	public Categorie ajouterCategorieService(Categorie ca, Administrateur admin) {
-		
-		if(admin.getIdAdmin()!=0){
-		return caDao.ajouterCategorieDao(ca);
+		if (admin.getIdAdmin() != 0) {
+			return caDao.ajouterCategorieDao(ca);
 		}
 		return null;
 	}
 
 	@Override
 	public int modifierCategorieService(Categorie ca, Administrateur admin) {
-		// TODO Auto-generated method stub
+		if (admin.getIdAdmin() != 0) {
+			return caDao.modifierCategorieDao(ca);
+		}
 		return 0;
 	}
 
 	@Override
 	public int supprimerCategorieService(Categorie ca, Administrateur admin) {
-		// TODO Auto-generated method stub
+		if (admin.getIdAdmin() != 0) {
+			return caDao.supprimerCategorieDao(ca);
+		}
 		return 0;
 	}
 
 	@Override
 	public Categorie consulterCategorieParIDService(Categorie ca, Administrateur admin) {
-		// TODO Auto-generated method stub
-		return null;
+		Categorie caFind = caDao.consulterCategorieParIDDao(ca);
+		// Vérifier si l'étudiant est celui du formateur
+		if (caFind != null && caFind.getAdministrateur().getIdAdmin() == admin.getIdAdmin()) {
+			return caFind;
+		} else {
+
+			return null;
+		}
 	}
 
 }

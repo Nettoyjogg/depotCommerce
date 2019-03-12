@@ -36,7 +36,7 @@ public class CategorieManagedBean {
 					// exécutée après l'instanciation de l'objet.
 	public void init() {
 		maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-		this.administrateur = (Administrateur) maSession.getAttribute("fSession");
+		this.administrateur = (Administrateur) maSession.getAttribute("adminSession");
 	}
 
 	// Getters and Setters
@@ -64,7 +64,7 @@ public class CategorieManagedBean {
 			List<Categorie> liste = caService.afficherCategorieService(administrateur);
 
 			// Mettre à jour la liste dans la sessin
-			maSession.setAttribute("lSession", liste);
+			maSession.setAttribute("categorieSession", liste);
 			return "accueil";
 		} else {
 			// Ajouter un message d'erreur
@@ -72,6 +72,50 @@ public class CategorieManagedBean {
 			return "ajoutcategorie";
 		}
 
+	}
+
+	public String modifierCategorieMB() {
+		int verif = caService.modifierCategorieService(categorie, administrateur);
+		if (verif != 0) {
+			// Récuperer la liste
+			List<Categorie> liste = caService.afficherCategorieService(administrateur);
+
+			// Mettre à jour la liste dans la sessin
+			maSession.setAttribute("categorieSession", liste);
+			return "accueil";
+		} else {
+			// Ajouter un message d'erreur
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Modif a échoué"));
+			return "modifiercategorie";
+		}
+
+	}
+
+	public String supprEtudiant() {
+		int verif = caService.supprimerCategorieService(categorie, administrateur);
+		if (verif != 0) {
+			// Récuperer la liste
+			List<Categorie> liste = caService.afficherCategorieService(administrateur);
+
+			// Mettre à jour la liste dans la sessin
+			maSession.setAttribute("categorieSession", liste);
+			return "accueil";
+		} else {
+			// Ajouter un message d'erreur
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Suppression a échoué"));
+			return "supprimercategorie";
+		}
+
+	}
+
+	public void searchEtudiant() {
+		this.categorie = caService.consulterCategorieParIDService(categorie, administrateur);
+		if (categorie == null) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La catégorie est null"));
+			indice = false;
+		} else {
+			indice = true;
+		}
 	}
 
 }

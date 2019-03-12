@@ -4,7 +4,8 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
 	<title>Facelet ajout</title>
@@ -13,12 +14,7 @@
 <h:body>
 
 <h:form>
-<p:breadCrumb>
-    <p:menuitem value="Accueil" url="accueil.xhtml" />
-    <p:menuitem value="Ajouter" url="ajoutcategorie.xhtml" />
-  
-
-</p:breadCrumb>
+<ui:include src="/resources/templates/header.xhtml" />
 </h:form>
 <h1 style="color: blue;text-align: center;"> Formulaire d'ajout</h1>
 
