@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Ma premi�re Facelet</title>
+</h:head>
+
+<h:body>
+<h:form>
+<p:breadCrumb>
+    <p:menuitem value="Accueil" url="accueil.xhtml" />
+    <p:menuitem value="Ajouter" url="ajoutcategorie.xhtml" />
+  
+
+</p:breadCrumb>
+</h:form>
+	<h1 style="color: blue;text-align: center;"> Liste des catégories</h1>
+	<h:form>
+		<p:dataTable var="ca" value="#{sessionScope.categorieSession}">
+			<p:column headerText="ID">
+				<h:outputText value="#{ca.idCategorie}" />
+			</p:column>
+
+			<p:column headerText="Nom">
+				<h:outputText value="#{ca.nomCategorie}" />
+			</p:column>
+
+			<p:column headerText="Photo">
+				<h:outputText value="#{ca.photo}" />
+			</p:column>
+
+			<p:column headerText="Description">
+				<h:outputText value="#{ca.description}" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>
