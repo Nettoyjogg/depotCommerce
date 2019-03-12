@@ -1,5 +1,6 @@
 package fr.adaming.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -15,8 +16,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="commandes")
-public class Commande {
+public class Commande implements Serializable{
 
+
+	private static final long serialVersionUID = 1L;
 	//déclaration des attributs
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
