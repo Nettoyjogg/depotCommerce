@@ -117,6 +117,8 @@ public class ProduitManagedBean {
 	}
 
 	public String modifierProduitMB() {
+		categorie = caService.consulterCategorieParIDService(categorie);
+		this.produit.setCategorie(categorie);
 		int verif = pService.modifierProduitService(produit, administrateur);
 		if (verif != 0) {
 			// Récuperer la liste
@@ -134,6 +136,8 @@ public class ProduitManagedBean {
 	}
 
 	public void modifierProduitAutoMB() {
+		categorie = caService.consulterCategorieParIDService(categorie);
+		this.produit.setCategorie(categorie);
 		this.produit = pService.consulterProduitService(produit, administrateur);
 	}
 
