@@ -2,39 +2,70 @@ package fr.adaming.dao;
 
 import java.util.List;
 
-import fr.adaming.model.Administrateur;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import fr.adaming.model.Produit;
 
-public class ProduitDaoImpl implements IProduitDao{
+@Stateless
+public class ProduitDaoImpl implements IProduitDao {
+	// LIER AUX BONNES REGLES DE CONFIG
+	@PersistenceContext(unitName = "pu_commerce")
+
+	private EntityManager em;
 
 	@Override
-	public List<Produit> afficherProduit(Administrateur admin) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Produit> afficherProduitDao() {
+		// Requete JPQL
+		String req = "SELECT p FROM Produit as p";
+
+		// Répérer un objet query
+		Query query = em.createQuery(req);
+
+		return query.getResultList();
 	}
 
 	@Override
-	public Produit ajouterProduitDao(Produit p, Administrateur admin) {
-		// TODO Auto-generated method stub
-		return null;
+	public Produit ajouterProduitDao(Produit p) {
+		em.persist(p);
+		return p;
 	}
 
 	@Override
-	public Produit modifierProduitDao(Produit p, Administrateur admin) {
-		// TODO Auto-generated method stub
-		return null;
+	public int modifierProduitDao(Produit p) {
+		// requete JPQL
+		String req = "UPDATE Produit as p SET p.designation=:pDesignation, p.description=:pDescription, p.prix=:pPrix, p.quantite=:pQuantite, p.selectionne=:pSelectionne, p.photo=:pPhoto WHERE p.idProduit=:pId";
+		// récupérer un objet query
+		Query query = em.createQuery(req);
+
+		query.setParameter("pDesignation", p.getDesignation());
+		query.setParameter("pDescription", p.getDescription());
+		query.setParameter("pPrix", p.getPrix());
+		query.setParameter("pQuantite", p.getQuantite());
+		query.setParameter("pSelectionne", p.isSelectionne());
+		query.setParameter("pPhoto", p.getPhoto());
+		query.setParameter("pId", p.getIdProduit());
+		int verif = query.executeUpdate();
+		return verif;
 	}
 
 	@Override
-	public int supprimerProduitDao(Produit p, Administrateur admin) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int supprimerProduitDao(Produit p) {
+		// requete JPQL
+		String req = "DELETE FROM Produit as p WHERE p.idProduit=:pId";
+		// récupérer un objet query
+		Query query = em.createQuery(req);
+
+		query.setParameter("pId", p.getIdProduit());
+		int verif = query.executeUpdate();
+		return verif;
 	}
 
 	@Override
-	public Produit consulterProduitDao(Produit p, Administrateur admin) {
-		// TODO Auto-generated method stub
-		return null;
+	public Produit consulterProduitDao(Produit p) {
+		return em.find(Produit.class, p.getIdProduit());
 	}
 
 }
