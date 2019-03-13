@@ -14,15 +14,15 @@
 	<ui:include src="/resources/templates/header.xhtml" />
 	<h1 style="color: red; text-align: center">Formulaire de
 		modification</h1>
-	<h:form id="idform">
+	<h:form>
 		<h:panelGrid columns="2">
 		Id: <h:inputText value="#{caMB.categorie.idCategorie}">
-				<p:ajax event="keyup" listener="#{caMB.modifierCategorieAutoMB}" update="idform" />
+				<p:ajax event="keyup" listener="#{caMB.modifierCategorieAutoMB}" update="idform, idform2" />
 				<!-- Event : Blur  -->
 			</h:inputText>				
-		Nom: <h:inputText value="#{caMB.categorie.nomCategorie}" />
+		Nom: <h:inputText id="idform" value="#{caMB.categorie.nomCategorie}" />
 <!-- 		Photo: <h:inputText value="#{caMB.categorie.photo}" /> -->
-		Description: <h:inputText value="#{caMB.categorie.description}" />
+		Description: <h:inputText id="idform2" value="#{caMB.categorie.description}" />
 
 			<h:commandButton value="modifier"
 				action="#{caMB.modifierCategorieMB}"></h:commandButton>
