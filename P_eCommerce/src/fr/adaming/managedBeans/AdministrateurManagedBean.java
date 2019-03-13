@@ -70,4 +70,10 @@ public class AdministrateurManagedBean implements Serializable {
 			return "login";
 		}
 	}
+	
+	public String seDeconnecter() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "login";
+	}
+	
 }
