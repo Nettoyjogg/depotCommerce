@@ -53,7 +53,13 @@
 					<b:navLink value="Débiter" href="debiterCompteEpargne.xhtml"></b:navLink>
 					<b:navLink value="Virement" href="virerCompteEpargne.xhtml"></b:navLink>
 				</b:dropMenu>
-				<b:navLink ><p:menuitem value="Deconnexion" action="#{adminMB.seDeconnecter}" /></b:navLink>
+					<b:dropMenu value="Deconnexion" 
+					contentDisabled="#{navBarBean.dropMenuDisabled}">
+					<b:navCommandLink value="Deconnexion Admin" action="#{adminMB.seDeconnecter}"></b:navCommandLink>
+					<b:navLink></b:navLink>
+					<b:navLink value="Deconnexion Client"></b:navLink>
+
+				</b:dropMenu>
 			</b:navbarLinks>
 		</b:navBar>
 	</ui:composition>

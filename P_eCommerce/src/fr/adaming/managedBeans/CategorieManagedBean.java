@@ -1,5 +1,6 @@
 package fr.adaming.managedBeans;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -18,7 +19,10 @@ import fr.adaming.service.ICategorieService;
 
 @ManagedBean(name = "caMB")
 @RequestScoped
-public class CategorieManagedBean {
+public class CategorieManagedBean implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
 	@EJB
 	private ICategorieService caService;
 

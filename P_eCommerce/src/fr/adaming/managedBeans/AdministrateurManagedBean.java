@@ -52,13 +52,14 @@ public class AdministrateurManagedBean implements Serializable {
 		Administrateur adminOut = adminService.estExistant(administrateur);
 
 		if (adminOut != null) {
-			// Récuprer les différentes liste sur la session de ce administrateur
+			// Récuprer les différentes liste sur la session de ce
+			// administrateur
 			List<Categorie> liste = caService.afficherCategorieService(adminOut);
 			List<Produit> listep = pService.afficherProduitService(adminOut);
 
 			// Mettre la liste dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categorieSession", liste);
-			
+
 			// Mettre la liste dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitSession", listep);
 
@@ -70,10 +71,11 @@ public class AdministrateurManagedBean implements Serializable {
 			return "login";
 		}
 	}
-	
+
 	public String seDeconnecter() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "login";
+		
 	}
-	
+
 }

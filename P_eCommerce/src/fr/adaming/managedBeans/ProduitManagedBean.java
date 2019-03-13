@@ -1,5 +1,6 @@
 package fr.adaming.managedBeans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +22,10 @@ import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "pMB")
 @RequestScoped
-public class ProduitManagedBean {
+public class ProduitManagedBean implements Serializable{
 
+
+	private static final long serialVersionUID = 1L;
 	@EJB
 	private IProduitService pService;
 	@EJB
