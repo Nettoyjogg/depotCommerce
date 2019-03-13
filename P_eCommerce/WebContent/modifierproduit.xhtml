@@ -16,7 +16,7 @@
 	<h:form>
 		<h:panelGrid columns="2">
 		Id Produit: <h:inputText value="#{pMB.produit.idProduit}">
-				<p:ajax event="keyup" listener="#{pMB.modifierProduitAutoMB}" update="designationproduit, descriptionproduit, prixproduit,quantiteproduit " />
+				<p:ajax event="keyup" listener="#{pMB.modifierProduitAutoMB}" update="designationproduit, descriptionproduit, prixproduit,quantiteproduit,categorieproduit " />
 				
 			</h:inputText>				
 
@@ -29,6 +29,8 @@
 		Quantite: <h:inputText id="quantiteproduit" value="#{pMB.produit.quantite}" />
 		
 		Selectionne: <h:inputText id="selectionneproduit" value="#{pMB.produit.selectionne}" />
+		
+		Catégorie: <h:inputText id="categorieproduit" value="#{pMB.categorie.idCategorie}" />
 		
 		<!-- Photo: <h:inputText value="#{pMB.produit.photo}" /> -->
 

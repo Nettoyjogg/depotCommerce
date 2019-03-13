@@ -12,15 +12,15 @@ import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 
 @Stateful
-public class ProduitServiceImpl implements IProduitService{
+public class ProduitServiceImpl implements IProduitService {
 
 	// Transformation de l'assocation UML en Java
 	@EJB
 	IProduitDao pDao;
-	
+
 	@EJB
 	ICategorieDao caDao;
-	
+
 	@Override
 	public List<Produit> afficherProduitService(Administrateur admin) {
 		if (admin.getIdAdmin() != 0) {
@@ -32,7 +32,7 @@ public class ProduitServiceImpl implements IProduitService{
 	@Override
 	public Produit ajouterProduitService(Produit p, Categorie ca, Administrateur admin) {
 		if (admin.getIdAdmin() != 0) {
-			ca=caDao.consulterCategorieParIDDao(ca);
+			ca = caDao.consulterCategorieParIDDao(ca);
 			p.setCategorie(ca);
 			return pDao.ajouterProduitDao(p);
 		}
@@ -60,7 +60,7 @@ public class ProduitServiceImpl implements IProduitService{
 		Produit Pout = pDao.consulterProduitDao(p);
 
 		// Vérifier si le produit existe et si on est dans une session admin
-		if (Pout!= null && admin.getIdAdmin() != 0) {
+		if (Pout != null && admin.getIdAdmin() != 0) {
 			return Pout;
 		} else {
 
@@ -68,8 +68,9 @@ public class ProduitServiceImpl implements IProduitService{
 		}
 	}
 
+	@Override
+	public List<Produit> consulterProduitCategorieService(Produit p) {
+		return pDao.consulterProduitCategorieDao(p);
+	}
 
-
-	
-	
 }

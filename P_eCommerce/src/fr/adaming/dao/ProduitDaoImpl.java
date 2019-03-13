@@ -6,9 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.apache.commons.codec.binary.Base64;
-
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 
@@ -27,14 +25,14 @@ public class ProduitDaoImpl implements IProduitDao {
 		// Répérer un objet query
 		Query query = em.createQuery(req);
 
-		List<Produit> ListeProduit= query.getResultList();
-		
-			for(Produit p:ListeProduit){
+		List<Produit> ListeProduit = query.getResultList();
 
-			p.setImg("data:image/png;base64,"+Base64.encodeBase64String(p.getPhoto()));
+		for (Produit p : ListeProduit) {
 
-			}
-		
+			p.setImg("data:image/png;base64," + Base64.encodeBase64String(p.getPhoto()));
+
+		}
+
 		return ListeProduit;
 	}
 
@@ -47,7 +45,7 @@ public class ProduitDaoImpl implements IProduitDao {
 	@Override
 	public int modifierProduitDao(Produit p) {
 		// requete JPQL
-		String req = "UPDATE Produit as p SET p.designation=:pDesignation, p.description=:pDescription, p.prix=:pPrix, p.quantite=:pQuantite, p.selectionne=:pSelectionne, p.photo=:pPhoto WHERE p.idProduit=:pId";
+		String req = "UPDATE Produit as p SET p.designation=:pDesignation, p.description=:pDescription, p.prix=:pPrix, p.quantite=:pQuantite, p.selectionne=:pSelectionne, p.photo=:pPhoto, p.categorie.idCategorie=:pIdCategorie WHERE p.idProduit=:pId";
 		// récupérer un objet query
 		Query query = em.createQuery(req);
 
@@ -57,6 +55,7 @@ public class ProduitDaoImpl implements IProduitDao {
 		query.setParameter("pQuantite", p.getQuantite());
 		query.setParameter("pSelectionne", p.isSelectionne());
 		query.setParameter("pPhoto", p.getPhoto());
+		query.setParameter("pIdCategorie", p.getCategorie().getIdCategorie());
 		query.setParameter("pId", p.getIdProduit());
 		int verif = query.executeUpdate();
 		return verif;
@@ -80,29 +79,35 @@ public class ProduitDaoImpl implements IProduitDao {
 	}
 
 	@Override
-	public List<Produit> consulterProduitSelectionnes(Produit p) {
+	public List<Produit> consulterProduitSelectionnesDao(Produit p) {
+		return null;
+	}
+
+	@Override
+	public Produit chercherProduitParMotCleDao() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Produit chercherProduitParMotCle() {
+	public Produit ajouterUnProduitQuantitePanierDao(Produit p) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Produit ajouterUnProduitQuantitePanier(Produit p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int supprimerProduitPanier(Produit p) {
+	public int supprimerProduitPanierDao(Produit p) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-
+	@Override
+	public List<Produit> consulterProduitCategorieDao(Produit p) {
+		String reqJPQLListe = "SELECT p FROM Produit as p, Categorie as ca WHERE p.categorie.idCategorie=:pIdCA";
+		Query queryListeJPQL = em.createQuery(reqJPQLListe);
+		queryListeJPQL.setParameter("pIdCA", p.getCategorie().getIdCategorie());
+		List<Produit> listeJPQL = queryListeJPQL.getResultList(); // (List<Produit>)
+		return listeJPQL;
+	}
 
 }
