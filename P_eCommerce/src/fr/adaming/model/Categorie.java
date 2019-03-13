@@ -29,6 +29,8 @@ public class Categorie implements Serializable {
 	@Column(name = "photo_ca")
 	@Lob
 	private byte[] photo;
+	@Transient
+	private String img;
 	@Column(name = "description_ca")
 	private String description;
 
@@ -105,6 +107,14 @@ public class Categorie implements Serializable {
 
 	public void setAdministrateur(Administrateur administrateur) {
 		this.administrateur = administrateur;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	// to string

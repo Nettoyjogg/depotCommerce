@@ -9,6 +9,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.model.UploadedFile;
+
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Administrateur;
 import fr.adaming.service.ICategorieService;
@@ -24,6 +27,7 @@ public class CategorieManagedBean {
 	private Categorie categorie;
 	private HttpSession maSession;
 	private boolean indice;
+	private UploadedFile image;
 
 	// Constructeur vide
 	public CategorieManagedBean() {
@@ -56,8 +60,19 @@ public class CategorieManagedBean {
 		this.indice = indice;
 	}
 
+	public UploadedFile getImage() {
+		return image;
+	}
+
+	public void setImage(UploadedFile image) {
+		this.image = image;
+	}
+
 	// Méthodes métiers
 	public String ajouterCategorieMB() {
+		if(this.image!=null){
+			this.categorie.setPhoto(this.image.getContents());
+		}
 		Categorie caAjout = caService.ajouterCategorieService(categorie, administrateur);
 		if (caAjout.getIdCategorie() != 0) {
 			// Récuperer la liste

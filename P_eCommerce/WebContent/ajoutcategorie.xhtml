@@ -18,15 +18,16 @@
 </h:form>
 <h1 style="color: blue;text-align: center;"> Formulaire d'ajout</h1>
 
-<h:form>
+<h:form enctype="multipart/form-data">
 <h:panelGrid columns="2">
 
 		Nom: <h:inputText value="#{caMB.categorie.nomCategorie}" />
 
 
-
 		Description : <h:inputText value="#{caMB.categorie.description}" />
 		
+		Photo: <p:fileUpload value="#{caMB.image}" mode="simple" skinSimple="true"/> 
+
 
 		<!-- Pour envoyer directement en Post -->
 		<h:commandButton value="Ajouter" action="#{caMB.ajouterCategorieMB}"></h:commandButton>

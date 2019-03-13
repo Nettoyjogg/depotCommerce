@@ -6,7 +6,11 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
+import org.apache.commons.codec.binary.Base64;
+
 import fr.adaming.model.Categorie;
+import fr.adaming.model.Produit;
 
 @Stateless
 public class CategorieDaoImpl implements ICategorieDao {
@@ -22,7 +26,15 @@ public class CategorieDaoImpl implements ICategorieDao {
 		// Répérer un objet query
 		Query query = em.createQuery(req);
 
-		return query.getResultList();
+		List<Categorie> ListeCategorie= query.getResultList();
+		
+		for(Categorie ca:ListeCategorie){
+
+		ca.setImg("data:image/png;base64,"+Base64.encodeBase64String(ca.getPhoto()));
+
+		}
+	
+	return ListeCategorie;
 	}
 
 	@Override
