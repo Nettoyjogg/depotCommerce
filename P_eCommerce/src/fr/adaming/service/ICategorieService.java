@@ -11,6 +11,8 @@ import fr.adaming.model.Categorie;
 public interface ICategorieService {
 
 	public List<Categorie> afficherCategorieService(Administrateur admin);
+	// Redéfinition for Client
+	public List<Categorie> afficherCategorieService();
 
 	public Categorie ajouterCategorieService(Categorie ca, Administrateur admin);
 
@@ -19,4 +21,6 @@ public interface ICategorieService {
 	public int supprimerCategorieService(Categorie ca, Administrateur admin);
 
 	public Categorie consulterCategorieParIDService(Categorie ca, Administrateur admin);
+	// Redéfinition for Client
+	public Categorie consulterCategorieParIDService(Categorie ca);
 }
