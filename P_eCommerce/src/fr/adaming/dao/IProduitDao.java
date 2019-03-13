@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 
 @Local
@@ -26,5 +27,7 @@ public interface IProduitDao {
 	public Produit ajouterUnProduitQuantitePanier(Produit p);
 	
 	public int supprimerProduitPanier(Produit p);
+	
+	public int lierProduitACategorie(Produit p,Categorie ca);
 
 }

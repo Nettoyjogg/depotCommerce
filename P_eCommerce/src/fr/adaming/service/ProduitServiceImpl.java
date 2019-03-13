@@ -26,8 +26,9 @@ public class ProduitServiceImpl implements IProduitService{
 	}
 
 	@Override
-	public Produit ajouterProduitService(Produit p, Administrateur admin) {
+	public Produit ajouterProduitService(Produit p, Categorie ca, Administrateur admin) {
 		if (admin.getIdAdmin() != 0) {
+			p.setCategorie(ca);
 			return pDao.ajouterProduitDao(p);
 		}
 		return null;
@@ -60,6 +61,16 @@ public class ProduitServiceImpl implements IProduitService{
 
 			return null;
 		}
+	}
+
+	@Override
+	public int lierProduitACategorie(Produit p, Categorie ca, Administrateur admin) {
+		if (admin.getIdAdmin() != 0) {
+			int verif= pDao.lierProduitACategorie(p, ca);
+			return verif;
+		}
+	
+		return 0;
 	}
 
 	

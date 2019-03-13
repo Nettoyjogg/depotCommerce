@@ -45,6 +45,9 @@
 				<h:outputText value="#{p.photo}" />
 			</p:column>
 			
+			<p:column headerText="Catégorie du produit">
+				<h:outputText value="#{p.categorie.nomCategorie}" />
+			</p:column>
 
 		</p:dataTable>
 	</h:form>

@@ -11,7 +11,9 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Administrateur;
+import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
+import fr.adaming.service.ICategorieService;
 import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "pMB")
@@ -20,6 +22,8 @@ public class ProduitManagedBean {
 
 	@EJB
 	private IProduitService pService;
+	@EJB
+	private ICategorieService caService;
 	
 	
 	// Attribut
@@ -27,6 +31,7 @@ public class ProduitManagedBean {
 	private Produit produit;
 	private HttpSession maSession;
 	private boolean indice;
+	private Categorie categorie;
 	
 	
 	
@@ -34,6 +39,7 @@ public class ProduitManagedBean {
 	public ProduitManagedBean() {
 		super();
 		this.produit = new Produit();
+		this.categorie = new Categorie();
 		this.indice = false;
 	}
 	
@@ -61,10 +67,22 @@ public class ProduitManagedBean {
 		this.indice = indice;
 	}
 	
-	//les méthodes métiers du Managed Bean
+
 	
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+	//les méthodes métiers du Managed Bean
 	public String ajouterProduitMB() {
-		Produit pAjout = pService.ajouterProduitService(produit, administrateur);
+		
+		Produit pAjout = pService.ajouterProduitService(produit,categorie, administrateur);
+		int a= pService.lierProduitACategorie(produit, categorie, administrateur);
+		System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+		System.out.println(categorie);
 		if (pAjout.getIdProduit() != 0) {
 			// Récuperer la liste des produits
 			List<Produit> listep = pService.afficherProduitService(administrateur);

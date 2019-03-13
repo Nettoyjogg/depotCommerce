@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "categories")
@@ -34,6 +35,7 @@ public class Categorie implements Serializable {
 	// transformation de l'association UML en JAVA
 	@OneToMany(mappedBy = "categorie")
 	private List<Produit> listeProduit;
+	@Transient
 	private Administrateur administrateur;
 
 	// déclaration des 3 constructeurs

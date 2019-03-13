@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 
 @Stateless
@@ -66,6 +67,43 @@ public class ProduitDaoImpl implements IProduitDao {
 	@Override
 	public Produit consulterProduitDao(Produit p) {
 		return em.find(Produit.class, p.getIdProduit());
+	}
+
+	@Override
+	public List<Produit> consulterProduitSelectionnes(Produit p) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Produit chercherProduitParMotCle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Produit ajouterUnProduitQuantitePanier(Produit p) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int supprimerProduitPanier(Produit p) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int lierProduitACategorie(Produit p, Categorie ca) {
+		// requete JPQL
+				String req = "UPDATE Produit as p SET p.categorie WHERE p.idProduit=:pId AND p.categorie.idCategorie=:pcaId";
+				// récupérer un objet query
+				Query query = em.createQuery(req);
+
+				query.setParameter("pId", p.getIdProduit());
+				query.setParameter("pcaId", p.getCategorie().getIdCategorie());
+				int verif = query.executeUpdate();
+				return verif;
 	}
 
 }
