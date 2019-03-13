@@ -1,5 +1,6 @@
 package fr.adaming.managedBeans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -34,6 +35,7 @@ public class ProduitManagedBean {
 	private boolean indice;
 	private Categorie categorie;
 	private UploadedFile image;
+	private List<Produit> listeProduit;
 
 	// déclaration du constructeur vide
 	public ProduitManagedBean() {
@@ -41,6 +43,7 @@ public class ProduitManagedBean {
 		this.produit = new Produit();
 		this.categorie = new Categorie();
 		this.indice = false;
+		this.listeProduit = new ArrayList<Produit>();
 	}
 
 	@PostConstruct // Cette annotation sert à dire que la méthode doit être
@@ -51,8 +54,17 @@ public class ProduitManagedBean {
 	}
 
 	// getter et setter
+
 	public Produit getProduit() {
 		return produit;
+	}
+
+	public List<Produit> getListeProduit() {
+		return listeProduit;
+	}
+
+	public void setListeProduit(List<Produit> listeProduit) {
+		this.listeProduit = listeProduit;
 	}
 
 	public void setProduit(Produit produit) {
@@ -85,7 +97,7 @@ public class ProduitManagedBean {
 
 	// les méthodes métiers du Managed Bean
 	public String ajouterProduitMB() {
-		if(this.image!=null){
+		if (this.image != null) {
 			this.produit.setPhoto(this.image.getContents());
 		}
 		Produit pAjout = pService.ajouterProduitService(produit, categorie, administrateur);
@@ -150,6 +162,23 @@ public class ProduitManagedBean {
 		} else {
 			indice = true;
 		}
+	}
+
+	public void rechercherProduitCategorieMB() {
+		try {
+			categorie = caService.consulterCategorieParIDService(categorie);
+			this.produit.setCategorie(categorie);
+			this.listeProduit.addAll(pService.consulterProduitCategorieService(this.produit));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (listeProduit.isEmpty() == true) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pas de produits"));
+			indice = false;
+		} else {
+			indice = true;
+		}
+
 	}
 
 }

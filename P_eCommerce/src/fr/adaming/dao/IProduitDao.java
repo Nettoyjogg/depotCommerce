@@ -19,15 +19,17 @@ public interface IProduitDao {
 	public int supprimerProduitDao(Produit p);
 	
 	public Produit consulterProduitDao(Produit p);
+	
+	public List<Produit> consulterProduitCategorieDao(Produit p);
 
-	public List<Produit> consulterProduitSelectionnes(Produit p);
+	public List<Produit> consulterProduitSelectionnesDao(Produit p);
 	
-	public Produit chercherProduitParMotCle();
+	public Produit chercherProduitParMotCleDao();
 	
-	public Produit ajouterUnProduitQuantitePanier(Produit p);
+	public Produit ajouterUnProduitQuantitePanierDao(Produit p);
 	
-	public int supprimerProduitPanier(Produit p);
+	public int supprimerProduitPanierDao(Produit p);
 	
-	//public int lierProduitACategorie(Produit p,Categorie ca);
+	
 
 }
