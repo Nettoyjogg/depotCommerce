@@ -48,6 +48,8 @@ public class AdministrateurManagedBean implements Serializable {
 
 	// Déclaration des méthodes métiers
 	public String seConnecter() {
+		//sedéconnecter d'une session antérieure aucasou
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		// chercher le administrateur par son mail et mdp
 		Administrateur adminOut = adminService.estExistant(administrateur);
 
@@ -74,7 +76,7 @@ public class AdministrateurManagedBean implements Serializable {
 
 	public String seDeconnecter() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "login";
+		return "accueil";
 		
 	}
 
