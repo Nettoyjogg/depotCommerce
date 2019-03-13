@@ -60,4 +60,14 @@ public class CategorieServiceImpl implements ICategorieService {
 		}
 	}
 
+	@Override
+	public List<Categorie> afficherCategorieService() {
+		return caDao.afficherCategorieDao();
+	}
+
+	@Override
+	public Categorie consulterCategorieParIDService(Categorie ca) {
+		return caDao.consulterCategorieParIDDao(ca);
+	}
+
 }

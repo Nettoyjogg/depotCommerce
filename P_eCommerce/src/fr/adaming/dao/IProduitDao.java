@@ -17,4 +17,12 @@ public interface IProduitDao {
 	public int supprimerProduitDao(Produit p, Administrateur admin);
 	
 	public Produit consulterProduitDao(Produit p, Administrateur admin);
+	
+	public List<Produit> consulterProduitSelectionnes(Produit p);
+	
+	public Produit chercherProduitParMotCle();
+	
+	public Produit ajouterUnProduitQuantitePanier(Produit p);
+	
+	public int supprimerProduitPanier(Produit p);
 }

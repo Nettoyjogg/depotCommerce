@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import fr.adaming.model.Categorie;
+import fr.adaming.model.Produit;
 
 @Local
 public interface ICategorieDao {
@@ -18,5 +19,13 @@ public interface ICategorieDao {
 	public int supprimerCategorieDao(Categorie ca);
 	
 	public Categorie consulterCategorieParIDDao(Categorie ca);
+	
+	public List<Produit> consulterProduitCategorieIdDao(Categorie ca);
+	
+
+	
 
 }
+
+
+// Enregistrer le client et la commande des produits de son panier.
