@@ -10,9 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -36,7 +38,10 @@ public class Produit implements Serializable{
 	@Column(name = "selectionne_p")
 	private boolean selectionne;
 	@Column(name = "photo_p")
+	@Lob
 	private byte[] photo;
+	@Transient
+	private String img;
 	
 	//transformation de l'association UML en JAVA
 	@ManyToOne
@@ -117,8 +122,7 @@ public class Produit implements Serializable{
 		this.photo = photo;
 	}
 	
-	
-	
+
 	
 	public Categorie getCategorie() {
 		return categorie;
@@ -126,8 +130,7 @@ public class Produit implements Serializable{
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
-	
-	
+
 	
 	public List<LigneCommande> getListeLigneCommande() {
 		return listeLigneCommande;
@@ -136,7 +139,13 @@ public class Produit implements Serializable{
 		this.listeLigneCommande = listeLigneCommande;
 	}
 	
-	
+
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
 	@Override
 	public String toString() {
 		return "Produit [idProduit=" + idProduit + ", designation=" + designation + ", description=" + description
