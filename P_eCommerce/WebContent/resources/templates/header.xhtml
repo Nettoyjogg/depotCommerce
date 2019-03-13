@@ -53,13 +53,30 @@
 					<b:navLink value="Débiter" href="debiterCompteEpargne.xhtml"></b:navLink>
 					<b:navLink value="Virement" href="virerCompteEpargne.xhtml"></b:navLink>
 				</b:dropMenu>
-					<b:dropMenu value="Deco/Reco" 
+				<b:dropMenu value="Deco/Reco"
 					contentDisabled="#{navBarBean.dropMenuDisabled}">
-					<b:navCommandLink value="Deconnexion Admin" action="#{adminMB.seDeconnecter}"></b:navCommandLink>
-					<b:navCommandLink value="Connexion Admin"></b:navCommandLink>
+					<b:navCommandLink value="Deconnexion Admin"
+						action="#{adminMB.seDeconnecter}"></b:navCommandLink>
+						<b:dropMenu value="Connexion Admin"
+						contentDisabled="#{navBarBean.dropMenuDisabled}">
+						<b:form>
+						<b:inputText  name="login" value="#{adminMB.administrateur.mailAdmin}"></b:inputText>
+						<b:inputSecret name="mdp" value="#{adminMB.administrateur.mdp}"></b:inputSecret>
+						<b:commandButton  value="Se connecter" action="#{adminMB.seConnecter}"></b:commandButton>
+						</b:form>
+					</b:dropMenu>
 					<b:navLink></b:navLink>
-					<b:navLink value="Deconnexion Client"></b:navLink>
-					<b:navCommandLink value="Connexion Client"></b:navCommandLink>
+					<b:navCommandLink value="Deconnexion Client"
+						action="#{cMB.seDeconnecter}"></b:navCommandLink>
+					<b:dropMenu value="Connexion Client"
+						contentDisabled="#{navBarBean.dropMenuDisabled}">
+						<b:form>
+						<b:inputText name="login" value="#{cMB.client.email}"></b:inputText>
+						<b:inputSecret name="mdp" value="#{cMB.client.mdpClient}"></b:inputSecret>
+						<b:commandButton value="Se connecter" action="#{cMB.seConnecter}"></b:commandButton>
+						</b:form>
+					</b:dropMenu>
+					
 
 				</b:dropMenu>
 			</b:navbarLinks>
