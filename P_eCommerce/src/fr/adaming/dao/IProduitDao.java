@@ -28,6 +28,6 @@ public interface IProduitDao {
 	
 	public int supprimerProduitPanier(Produit p);
 	
-	public int lierProduitACategorie(Produit p,Categorie ca);
+	//public int lierProduitACategorie(Produit p,Categorie ca);
 
 }

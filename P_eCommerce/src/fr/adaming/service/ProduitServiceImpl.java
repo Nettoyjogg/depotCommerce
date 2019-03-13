@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
+import fr.adaming.dao.ICategorieDao;
 import fr.adaming.dao.IProduitDao;
 import fr.adaming.model.Administrateur;
 import fr.adaming.model.Categorie;
@@ -17,6 +18,9 @@ public class ProduitServiceImpl implements IProduitService{
 	@EJB
 	IProduitDao pDao;
 	
+	@EJB
+	ICategorieDao caDao;
+	
 	@Override
 	public List<Produit> afficherProduitService(Administrateur admin) {
 		if (admin.getIdAdmin() != 0) {
@@ -28,6 +32,7 @@ public class ProduitServiceImpl implements IProduitService{
 	@Override
 	public Produit ajouterProduitService(Produit p, Categorie ca, Administrateur admin) {
 		if (admin.getIdAdmin() != 0) {
+			ca=caDao.consulterCategorieParIDDao(ca);
 			p.setCategorie(ca);
 			return pDao.ajouterProduitDao(p);
 		}
@@ -63,15 +68,7 @@ public class ProduitServiceImpl implements IProduitService{
 		}
 	}
 
-	@Override
-	public int lierProduitACategorie(Produit p, Categorie ca, Administrateur admin) {
-		if (admin.getIdAdmin() != 0) {
-			int verif= pDao.lierProduitACategorie(p, ca);
-			return verif;
-		}
-	
-		return 0;
-	}
+
 
 	
 	

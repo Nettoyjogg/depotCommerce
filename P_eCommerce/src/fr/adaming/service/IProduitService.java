@@ -20,5 +20,5 @@ public interface IProduitService {
 
 	public Produit consulterProduitService(Produit p,Administrateur admin);
 	
-	public int lierProduitACategorie(Produit p,Categorie ca,Administrateur admin);
+	//public int lierProduitACategorie(Produit p,Categorie ca,Administrateur admin);
 }

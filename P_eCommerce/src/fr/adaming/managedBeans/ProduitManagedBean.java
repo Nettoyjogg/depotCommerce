@@ -24,33 +24,30 @@ public class ProduitManagedBean {
 	private IProduitService pService;
 	@EJB
 	private ICategorieService caService;
-	
-	
+
 	// Attribut
 	private Administrateur administrateur;
 	private Produit produit;
 	private HttpSession maSession;
 	private boolean indice;
 	private Categorie categorie;
-	
-	
-	
-	//déclaration du constructeur vide
+
+	// déclaration du constructeur vide
 	public ProduitManagedBean() {
 		super();
 		this.produit = new Produit();
 		this.categorie = new Categorie();
 		this.indice = false;
 	}
-	
+
 	@PostConstruct // Cette annotation sert à dire que la méthode doit être
 	// exécutée après l'instanciation de l'objet.
 	public void init() {
 		maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		this.administrateur = (Administrateur) maSession.getAttribute("adminSession");
-}
+	}
 
-	//getter et setter
+	// getter et setter
 	public Produit getProduit() {
 		return produit;
 	}
@@ -66,9 +63,7 @@ public class ProduitManagedBean {
 	public void setIndice(boolean indice) {
 		this.indice = indice;
 	}
-	
 
-	
 	public Categorie getCategorie() {
 		return categorie;
 	}
@@ -76,13 +71,11 @@ public class ProduitManagedBean {
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
-	//les méthodes métiers du Managed Bean
+
+	// les méthodes métiers du Managed Bean
 	public String ajouterProduitMB() {
-		
-		Produit pAjout = pService.ajouterProduitService(produit,categorie, administrateur);
-		int a= pService.lierProduitACategorie(produit, categorie, administrateur);
-		System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		System.out.println(categorie);
+
+		Produit pAjout = pService.ajouterProduitService(produit, categorie, administrateur);
 		if (pAjout.getIdProduit() != 0) {
 			// Récuperer la liste des produits
 			List<Produit> listep = pService.afficherProduitService(administrateur);
@@ -98,7 +91,6 @@ public class ProduitManagedBean {
 
 	}
 
-	
 	public String modifierProduitMB() {
 		int verif = pService.modifierProduitService(produit, administrateur);
 		if (verif != 0) {
@@ -115,11 +107,11 @@ public class ProduitManagedBean {
 		}
 
 	}
-	
+
 	public void modifierProduitAutoMB() {
-		this.produit=pService.consulterProduitService(produit, administrateur);
+		this.produit = pService.consulterProduitService(produit, administrateur);
 	}
-	
+
 	public String supprimerProduitMB() {
 		int verif = pService.supprimerProduitService(produit, administrateur);
 		if (verif != 0) {
@@ -136,7 +128,7 @@ public class ProduitManagedBean {
 		}
 
 	}
-	
+
 	public void rechercherProduitParIdMB() {
 		this.produit = pService.consulterProduitService(produit, administrateur);
 		if (produit == null) {
@@ -146,9 +138,5 @@ public class ProduitManagedBean {
 			indice = true;
 		}
 	}
-	
-	
-	
+
 }
-
-

@@ -93,17 +93,6 @@ public class ProduitDaoImpl implements IProduitDao {
 		return 0;
 	}
 
-	@Override
-	public int lierProduitACategorie(Produit p, Categorie ca) {
-		// requete JPQL
-				String req = "UPDATE Produit as p SET p.categorie WHERE p.idProduit=:pId AND p.categorie.idCategorie=:pcaId";
-				// récupérer un objet query
-				Query query = em.createQuery(req);
 
-				query.setParameter("pId", p.getIdProduit());
-				query.setParameter("pcaId", p.getCategorie().getIdCategorie());
-				int verif = query.executeUpdate();
-				return verif;
-	}
 
 }
