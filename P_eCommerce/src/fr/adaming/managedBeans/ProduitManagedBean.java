@@ -10,6 +10,8 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.model.UploadedFile;
+
 import fr.adaming.model.Administrateur;
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
@@ -31,6 +33,7 @@ public class ProduitManagedBean {
 	private HttpSession maSession;
 	private boolean indice;
 	private Categorie categorie;
+	private UploadedFile image;
 
 	// déclaration du constructeur vide
 	public ProduitManagedBean() {
@@ -72,9 +75,19 @@ public class ProduitManagedBean {
 		this.categorie = categorie;
 	}
 
+	public UploadedFile getImage() {
+		return image;
+	}
+
+	public void setImage(UploadedFile image) {
+		this.image = image;
+	}
+
 	// les méthodes métiers du Managed Bean
 	public String ajouterProduitMB() {
-
+		if(this.image!=null){
+			this.produit.setPhoto(this.image.getContents());
+		}
 		Produit pAjout = pService.ajouterProduitService(produit, categorie, administrateur);
 		if (pAjout.getIdProduit() != 0) {
 			// Récuperer la liste des produits
