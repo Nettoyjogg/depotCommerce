@@ -9,8 +9,10 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import fr.adaming.model.Administrateur;
 import fr.adaming.model.Categorie;
+import fr.adaming.model.Produit;
 import fr.adaming.service.IAdministrateurService;
 import fr.adaming.service.ICategorieService;
+import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "adminMB")
 @RequestScoped
@@ -23,6 +25,8 @@ public class AdministrateurManagedBean implements Serializable {
 	private IAdministrateurService adminService;
 	@EJB
 	private ICategorieService caService;
+	@EJB
+	private IProduitService pService;
 
 	// Déclaration des attributs
 	private Administrateur administrateur;
@@ -48,11 +52,15 @@ public class AdministrateurManagedBean implements Serializable {
 		Administrateur adminOut = adminService.estExistant(administrateur);
 
 		if (adminOut != null) {
-			// Récuprer la liste des étudiants de ce administrateur
+			// Récuprer les différentes liste sur la session de ce administrateur
 			List<Categorie> liste = caService.afficherCategorieService(adminOut);
+			List<Produit> listep = pService.afficherProduitService(adminOut);
 
 			// Mettre la liste dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categorieSession", liste);
+			
+			// Mettre la liste dans la session
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitSession", listep);
 
 			// Mettre le administrateur dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminSession", adminOut);

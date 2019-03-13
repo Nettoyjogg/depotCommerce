@@ -9,13 +9,13 @@ import fr.adaming.model.Produit;
 
 @Local
 public interface IProduitService {
-	public List<Produit> afficherProduitDao(Administrateur admin);
+	public List<Produit> afficherProduitService(Administrateur admin);
 
-	public Produit ajouterProduitDao(Produit p,Administrateur admin);
+	public Produit ajouterProduitService(Produit p,Administrateur admin);
 
-	public int modifierProduitDao(Produit p,Administrateur admin);
+	public int modifierProduitService(Produit p,Administrateur admin);
 
-	public int supprimerProduitDao(Produit p,Administrateur admin);
+	public int supprimerProduitService(Produit p,Administrateur admin);
 
-	public Produit consulterProduitDao(Produit p,Administrateur admin);
+	public Produit consulterProduitService(Produit p,Administrateur admin);
 }

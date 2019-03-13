@@ -18,7 +18,7 @@ public class ProduitServiceImpl implements IProduitService{
 	IProduitDao pDao;
 	
 	@Override
-	public List<Produit> afficherProduitDao(Administrateur admin) {
+	public List<Produit> afficherProduitService(Administrateur admin) {
 		if (admin.getIdAdmin() != 0) {
 			return pDao.afficherProduitDao();
 		}
@@ -26,7 +26,7 @@ public class ProduitServiceImpl implements IProduitService{
 	}
 
 	@Override
-	public Produit ajouterProduitDao(Produit p, Administrateur admin) {
+	public Produit ajouterProduitService(Produit p, Administrateur admin) {
 		if (admin.getIdAdmin() != 0) {
 			return pDao.ajouterProduitDao(p);
 		}
@@ -34,7 +34,7 @@ public class ProduitServiceImpl implements IProduitService{
 	}
 
 	@Override
-	public int modifierProduitDao(Produit p, Administrateur admin) {
+	public int modifierProduitService(Produit p, Administrateur admin) {
 		if (admin.getIdAdmin() != 0) {
 			return pDao.modifierProduitDao(p);
 		}
@@ -42,7 +42,7 @@ public class ProduitServiceImpl implements IProduitService{
 	}
 
 	@Override
-	public int supprimerProduitDao(Produit p, Administrateur admin) {
+	public int supprimerProduitService(Produit p, Administrateur admin) {
 		if (admin.getIdAdmin() != 0) {
 			return pDao.supprimerProduitDao(p);
 		}
@@ -50,7 +50,7 @@ public class ProduitServiceImpl implements IProduitService{
 	}
 
 	@Override
-	public Produit consulterProduitDao(Produit p, Administrateur admin) {
+	public Produit consulterProduitService(Produit p, Administrateur admin) {
 		Produit Pout = pDao.consulterProduitDao(p);
 
 		// Vérifier si le produit existe et si on est dans une session admin
