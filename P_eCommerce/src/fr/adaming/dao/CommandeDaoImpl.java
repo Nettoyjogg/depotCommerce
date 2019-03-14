@@ -3,8 +3,6 @@ package fr.adaming.dao;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import fr.adaming.model.Categorie;
 import fr.adaming.model.Commande;
 
 @Stateless

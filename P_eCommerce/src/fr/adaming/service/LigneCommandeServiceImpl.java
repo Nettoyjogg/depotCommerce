@@ -2,11 +2,9 @@ package fr.adaming.service;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import fr.adaming.dao.ICategorieDao;
 import fr.adaming.dao.ICommandeDao;
 import fr.adaming.dao.ILigneCommandeDao;
 import fr.adaming.dao.IProduitDao;
-import fr.adaming.model.Categorie;
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
