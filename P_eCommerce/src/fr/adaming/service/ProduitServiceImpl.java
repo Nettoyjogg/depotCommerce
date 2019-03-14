@@ -73,4 +73,9 @@ public class ProduitServiceImpl implements IProduitService {
 		return pDao.consulterProduitCategorieDao(p);
 	}
 
+	@Override
+	public Produit consulterProduitService(Produit p) {
+		return pDao.consulterProduitDao(p);
+	}
+
 }
