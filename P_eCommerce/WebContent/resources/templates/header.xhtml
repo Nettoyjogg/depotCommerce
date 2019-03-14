@@ -58,8 +58,12 @@
 					</b:dropMenu>
 					<b:dropMenu value="Deco/Reco"
 						contentDisabled="#{navBarBean.dropMenuDisabled}">
-						<b:navCommandLink value="Deconnexion Admin"
-							action="#{adminMB.seDeconnecter}"></b:navCommandLink>
+<!-- 						<b:navCommandLink value="Deconnexion Admin" -->
+<!-- 							action="#{adminMB.seDeconnecter}"></b:navCommandLink> -->
+							<b:form>
+								<b:commandButton value="Se déco"
+									action="#{adminMB.seDeconnecter}"></b:commandButton>
+							</b:form>
 						<b:dropMenu value="Connexion Admin"
 							contentDisabled="#{navBarBean.dropMenuDisabled}">
 							<b:form>
