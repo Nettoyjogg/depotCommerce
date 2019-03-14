@@ -13,7 +13,7 @@
 <h:body>
 
 	<ui:composition>
-		<b:form>
+		
 			<b:navBar brand="Commerce" brandHref="accueil.xhtml"
 				id="dropMenuExample" contentDisabled="#{navBarBean.navBarDisabled}"
 				inverse="true">
@@ -58,12 +58,9 @@
 					</b:dropMenu>
 					<b:dropMenu value="Deco/Reco"
 						contentDisabled="#{navBarBean.dropMenuDisabled}">
-<!-- 						<b:navCommandLink value="Deconnexion Admin" -->
-<!-- 							action="#{adminMB.seDeconnecter}"></b:navCommandLink> -->
-							<b:form>
-								<b:commandButton value="Se déco"
-									action="#{adminMB.seDeconnecter}"></b:commandButton>
-							</b:form>
+						<b:navCommandLink value="Deconnexion Admin"
+							action="#{adminMB.seDeconnecter}"></b:navCommandLink>
+
 						<b:dropMenu value="Connexion Admin"
 							contentDisabled="#{navBarBean.dropMenuDisabled}">
 							<b:form>
@@ -89,7 +86,7 @@
 					</b:dropMenu>
 				</b:navbarLinks>
 			</b:navBar>
-		</b:form>
+		
 	</ui:composition>
 
 </h:body>

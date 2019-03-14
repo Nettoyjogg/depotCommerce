@@ -3,18 +3,19 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
 <h:head>
 
-<title>Insert title here</title>
+	<title>Insert title here</title>
 </h:head>
 <h:body>
 
-<ui:include src="/resources/templates/header.xhtml" />
+	<h:form>
+		<ui:include src="/resources/templates/header.xhtml" />
+	</h:form>
 
 
-<h1 style="color: blue;text-align: center;"> Liste des produits </h1>
+	<h1 style="color: blue; text-align: center;">Liste des produits</h1>
 	<h:form>
 		<p:dataTable var="p" value="#{sessionScope.produitSession}">
 			<p:column headerText="ID">
@@ -32,19 +33,19 @@
 			<p:column headerText="prix">
 				<h:outputText value="#{p.prix}" />
 			</p:column>
-			
+
 			<p:column headerText="quantite">
 				<h:outputText value="#{p.quantite}" />
 			</p:column>
-			
+
 			<p:column headerText="selectionne">
 				<h:outputText value="#{p.selectionne}" />
 			</p:column>
-			
+
 			<p:column headerText="photo">
 				<h:graphicImage value="#{p.img}" />
 			</p:column>
-			
+
 			<p:column headerText="Catégorie du produit">
 				<h:outputText value="#{p.categorie.nomCategorie}" />
 			</p:column>
