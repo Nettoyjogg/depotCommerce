@@ -69,16 +69,16 @@ public class ClientManagedBean implements Serializable{
 
 			// Mettre le administrateur dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("clientSession", cOut);
-			return "accueil";
+			return "accueilclient";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le mot de passe ou mail est mauvais"));
-			return "accueil";
+			return "accueilclient";
 		}
 	}
 
 	public String seDeconnecter() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "accueil";
+		return "accueilclient";
 		
 	}
 

@@ -70,13 +70,13 @@ public class AdministrateurManagedBean implements Serializable {
 			return "accueil";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le mot de passe ou mail est mauvais"));
-			return "login";
+			return "accueilclient";
 		}
 	}
 
 	public String seDeconnecter() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "accueil";
+		return "accueilclient";
 		
 	}
 
