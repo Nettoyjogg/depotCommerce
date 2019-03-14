@@ -104,11 +104,11 @@ public class ProduitDaoImpl implements IProduitDao {
 
 	@Override
 	public List<Produit> consulterProduitCategorieDao(Produit p) {
-		String reqJPQLListe = "SELECT p FROM Produit as p, Categorie as ca WHERE p.categorie.idCategorie=:pIdCA";
-		Query queryListeJPQL = em.createQuery(reqJPQLListe);
-		queryListeJPQL.setParameter("pIdCA", p.getCategorie().getIdCategorie());
-		List<Produit> listeJPQL = queryListeJPQL.getResultList(); // (List<Produit>)
-		return listeJPQL;
+		String reqListe = "SELECT p FROM Produit as p WHERE p.categorie.idCategorie=:pIdCA";
+		Query queryListe = em.createQuery(reqListe);
+		queryListe.setParameter("pIdCA", p.getCategorie().getIdCategorie());
+		List<Produit> liste = (List<Produit>) queryListe.getResultList();
+		return liste;
 	}
 
 }

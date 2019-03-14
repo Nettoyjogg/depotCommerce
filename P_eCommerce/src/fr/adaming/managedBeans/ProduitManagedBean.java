@@ -22,8 +22,7 @@ import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "pMB")
 @RequestScoped
-public class ProduitManagedBean implements Serializable{
-
+public class ProduitManagedBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@EJB
@@ -46,7 +45,6 @@ public class ProduitManagedBean implements Serializable{
 		this.produit = new Produit();
 		this.categorie = new Categorie();
 		this.indice = false;
-		this.listeProduit = new ArrayList<Produit>();
 	}
 
 	@PostConstruct // Cette annotation sert à dire que la méthode doit être
@@ -175,7 +173,7 @@ public class ProduitManagedBean implements Serializable{
 		try {
 			categorie = caService.consulterCategorieParIDService(categorie);
 			this.produit.setCategorie(categorie);
-			this.listeProduit.addAll(pService.consulterProduitCategorieService(this.produit));
+			this.listeProduit = pService.consulterProduitCategorieService(this.produit);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
