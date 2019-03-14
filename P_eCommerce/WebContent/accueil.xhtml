@@ -36,5 +36,27 @@
 
 		</p:dataTable>
 	</h:form>
+	<h:form>
+		<p:dataTable var="ca" value="#{caMB.listeCa}">
+			<p:column headerText="ID">
+				<h:outputText value="#{ca.idCategorie}" />
+			</p:column>
+
+			<p:column headerText="Nom">
+				<h:outputText value="#{ca.nomCategorie}" />
+			</p:column>
+
+			<p:column headerText="Photo">
+				<h:graphicImage value="#{ca.img}" />
+			</p:column>
+			<p:column headerText="Photo">
+				<h:graphicImage value="#{ca.img}" />
+			</p:column>
+			<p:column headerText="Description">
+				<h:outputText value="#{ca.description}" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
 </h:body>
 </html>

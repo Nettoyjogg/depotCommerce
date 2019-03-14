@@ -32,6 +32,7 @@ public class CategorieManagedBean implements Serializable{
 	private HttpSession maSession;
 	private boolean indice;
 	private UploadedFile image;
+	private List<Categorie> listeCa;
 
 	// Constructeur vide
 	public CategorieManagedBean() {
@@ -43,9 +44,14 @@ public class CategorieManagedBean implements Serializable{
 	@PostConstruct // Cette annotation sert à dire que la méthode doit être
 					// exécutée après l'instanciation de l'objet.
 	public void init() {
+		this.listeCa=caService.afficherCategorieService();
 		maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		this.administrateur = (Administrateur) maSession.getAttribute("adminSession");
 	}
+	
+	/*public void seConnecter(){
+		
+	}*/
 
 	// Getters and Setters
 	public Categorie getCategorie() {
@@ -71,6 +77,15 @@ public class CategorieManagedBean implements Serializable{
 	public void setImage(UploadedFile image) {
 		this.image = image;
 	}
+	
+
+	public List<Categorie> getListeCa() {
+		return listeCa;
+	}
+
+	public void setListeCa(List<Categorie> listeCa) {
+		this.listeCa = listeCa;
+	}
 
 	// Méthodes métiers
 	public String ajouterCategorieMB() {
@@ -80,10 +95,8 @@ public class CategorieManagedBean implements Serializable{
 		Categorie caAjout = caService.ajouterCategorieService(categorie, administrateur);
 		if (caAjout.getIdCategorie() != 0) {
 			// Récuperer la liste
-			List<Categorie> liste = caService.afficherCategorieService(administrateur);
+			this.listeCa= caService.afficherCategorieService(administrateur);
 
-			// Mettre à jour la liste dans la sessin
-			maSession.setAttribute("categorieSession", liste);
 			return "accueil";
 		} else {
 			// Ajouter un message d'erreur
@@ -97,10 +110,8 @@ public class CategorieManagedBean implements Serializable{
 		int verif = caService.modifierCategorieService(categorie, administrateur);
 		if (verif != 0) {
 			// Récuperer la liste
-			List<Categorie> liste = caService.afficherCategorieService(administrateur);
-
-			// Mettre à jour la liste dans la sessin
-			maSession.setAttribute("categorieSession", liste);
+			this.listeCa = caService.afficherCategorieService(administrateur);
+		
 			return "accueil";
 		} else {
 			// Ajouter un message d'erreur
@@ -114,10 +125,9 @@ public class CategorieManagedBean implements Serializable{
 		int verif = caService.supprimerCategorieService(categorie, administrateur);
 		if (verif != 0) {
 			// Récuperer la liste
-			List<Categorie> liste = caService.afficherCategorieService(administrateur);
+			this.listeCa = caService.afficherCategorieService(administrateur);
 
-			// Mettre à jour la liste dans la sessin
-			maSession.setAttribute("categorieSession", liste);
+		
 			return "accueil";
 		} else {
 			// Ajouter un message d'erreur
