@@ -11,8 +11,11 @@
 	<title>Rechercher un produit</title>
 </h:head>
 <h:body>
-	<ui:include src="/resources/templates/header.xhtml" />
-	<h1 style="color: red; text-align: center">Rechercher un produit par son Id</h1>
+	<h:form>
+		<ui:include src="/resources/templates/header.xhtml" />
+	</h:form>
+	<h1 style="color: red; text-align: center">Rechercher un produit
+		par son Id</h1>
 	<h:form>
 		<h:panelGrid columns="2">
 		Id: <h:inputText value="#{pMB.produit.idProduit}" />
@@ -27,36 +30,35 @@
 	</h1>
 
 
-	<p:dataTable var="p" value="#{pMB.produit}"
-		rendered="#{pMB.indice}">
+	<p:dataTable var="p" value="#{pMB.produit}" rendered="#{pMB.indice}">
 		<!-- SessionScope Objet implicite -->
-			<p:column headerText="ID">
-				<h:outputText value="#{p.idProduit}" />
-			</p:column>
+		<p:column headerText="ID">
+			<h:outputText value="#{p.idProduit}" />
+		</p:column>
 
-			<p:column headerText="designation">
-				<h:outputText value="#{p.designation}" />
-			</p:column>
+		<p:column headerText="designation">
+			<h:outputText value="#{p.designation}" />
+		</p:column>
 
-			<p:column headerText="description">
-				<h:outputText value="#{p.description}" />
-			</p:column>
+		<p:column headerText="description">
+			<h:outputText value="#{p.description}" />
+		</p:column>
 
-			<p:column headerText="prix">
-				<h:outputText value="#{p.prix}" />
-			</p:column>
-			
-			<p:column headerText="quantite">
-				<h:outputText value="#{p.quantite}" />
-			</p:column>
-			
-			<p:column headerText="selectionne">
-				<h:outputText value="#{p.selectionne}" />
-			</p:column>
-			
-			<p:column headerText="photo">
-				<h:outputText value="#{p.photo}" />
-			</p:column>
+		<p:column headerText="prix">
+			<h:outputText value="#{p.prix}" />
+		</p:column>
+
+		<p:column headerText="quantite">
+			<h:outputText value="#{p.quantite}" />
+		</p:column>
+
+		<p:column headerText="selectionne">
+			<h:outputText value="#{p.selectionne}" />
+		</p:column>
+
+		<p:column headerText="photo">
+			<h:outputText value="#{p.photo}" />
+		</p:column>
 
 	</p:dataTable>
 

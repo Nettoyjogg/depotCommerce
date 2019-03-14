@@ -7,36 +7,43 @@
 	xmlns:b="http://bootsfaces.net/ui">
 <h:head>
 
-<title>Modifier Produit</title>
+	<title>Modifier Produit</title>
 </h:head>
 <h:body>
-	<ui:include src="/resources/templates/header.xhtml" />
+	<h:form>
+		<ui:include src="/resources/templates/header.xhtml" />
+	</h:form>
 	<h1 style="color: red; text-align: center">Formulaire de
 		modification</h1>
 	<h:form>
 		<h:panelGrid columns="2">
 		Id Produit: <h:inputText value="#{pMB.produit.idProduit}">
-				<p:ajax event="keyup" listener="#{pMB.modifierProduitAutoMB}" update="designationproduit, descriptionproduit, prixproduit,quantiteproduit,categorieproduit " />
-				
+				<p:ajax event="keyup" listener="#{pMB.modifierProduitAutoMB}"
+					update="designationproduit, descriptionproduit, prixproduit,quantiteproduit,categorieproduit " />
+
 			</h:inputText>				
 
-		Designation: <h:inputText id="designationproduit" value="#{pMB.produit.designation}" />
+		Designation: <h:inputText id="designationproduit"
+				value="#{pMB.produit.designation}" />
 
-		Description : <h:inputText id="descriptionproduit" value="#{pMB.produit.description}" />
+		Description : <h:inputText id="descriptionproduit"
+				value="#{pMB.produit.description}" />
 		
 		Prix: <h:inputText id="prixproduit" value="#{pMB.produit.prix}" />
 		
-		Quantite: <h:inputText id="quantiteproduit" value="#{pMB.produit.quantite}" />
+		Quantite: <h:inputText id="quantiteproduit"
+				value="#{pMB.produit.quantite}" />
 		
-		Selectionne: <h:inputText id="selectionneproduit" value="#{pMB.produit.selectionne}" />
+		Selectionne: <h:inputText id="selectionneproduit"
+				value="#{pMB.produit.selectionne}" />
 		
-		Catégorie: <h:inputText id="categorieproduit" value="#{pMB.categorie.idCategorie}" />
-		
-		<!-- Photo: <h:inputText value="#{pMB.produit.photo}" /> -->
+		Catégorie: <h:inputText id="categorieproduit"
+				value="#{pMB.categorie.idCategorie}" />
+
+			<!-- Photo: <h:inputText value="#{pMB.produit.photo}" /> -->
 
 
-			<h:commandButton value="modifier"
-				action="#{pMB.modifierProduitMB}"></h:commandButton>
+			<h:commandButton value="modifier" action="#{pMB.modifierProduitMB}"></h:commandButton>
 		</h:panelGrid>
 	</h:form>
 	<h1 style="color: red; text-align: center">

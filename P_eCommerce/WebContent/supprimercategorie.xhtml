@@ -10,14 +10,17 @@
 	<title>Facelet Supprimer</title>
 </h:head>
 <h:body>
-<ui:include src="/resources/templates/header.xhtml" />
+	<h:form>
+		<ui:include src="/resources/templates/header.xhtml" />
+	</h:form>
 
 	<h1 style="color: red; text-align: center">Formulaire de
 		suppression</h1>
 	<h:form>
 		<h:panelGrid columns="2">
 		Id: <h:inputText value="#{caMB.categorie.idCategorie}" />
-			<h:commandButton value="supprimer" action="#{caMB.supprimerCategorieMB}"></h:commandButton>
+			<h:commandButton value="supprimer"
+				action="#{caMB.supprimerCategorieMB}"></h:commandButton>
 		</h:panelGrid>
 	</h:form>
 	<h1 style="color: red; text-align: center">
