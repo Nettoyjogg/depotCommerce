@@ -8,8 +8,10 @@ import fr.adaming.model.Produit;
 
 @Local
 public interface ILigneCommandeDao {
-
-	public LigneCommande AjouterLigneCommandeDao(Commande co);
 	
-	public LigneCommande AjouterLigneCommandeDao(Produit p);
+	public LigneCommande AjouterLigneCommandeDao(LigneCommande lc);
+
+	public int LierLigneCommandeCommandeDao(LigneCommande lc);
+	
+	public int LierLigneCommandeProduitDao(LigneCommande lc);
 }

@@ -3,6 +3,8 @@ package fr.adaming.dao;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Produit;
@@ -13,18 +15,32 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 	@PersistenceContext(unitName = "pu_commerce")
 	private EntityManager em;
 
+	
 	@Override
-	public LigneCommande AjouterLigneCommandeDao(Commande co) {
+	public LigneCommande AjouterLigneCommandeDao(LigneCommande lc){
+		em.persist(lc);
+		return lc;
+	}
+	
+	
+	@Override
+	public int LierLigneCommandeCommandeDao(LigneCommande lc) {
 		
-		String req="UPDATE LigneCommande  as lc SET lc.commande=:pCommande ";
-		
-		return null;
+		Query req = em.createQuery("UPDATE LigneCommande as lc SET lc.commande.idCommande=:pCommande WHERE lc.idLigneCommande=:pIdLigneCommande ");
+		req.setParameter("pCommande", lc.getCommande().getIdCommande());
+		req.setParameter("pIdLigneCommande", lc.getIdLigneCommande());
+		int verif=req.executeUpdate();
+		return verif;
 	}
 
 	@Override
-	public LigneCommande AjouterLigneCommandeDao(Produit p) {
+	public int LierLigneCommandeProduitDao(LigneCommande lc) {
 	
-		return null;
+		Query req = em.createQuery("UPDATE LigneCommande as lc SET lc.produit.idProduit=:pProduit WHERE lc.idLigneCommande=:pIdLigneCommande ");
+		req.setParameter("pProduit", lc.getProduit().getIdProduit());
+		req.setParameter("pIdLigneCommande", lc.getIdLigneCommande());
+		int verif=req.executeUpdate();
+		return verif;
 	}
 
 }
