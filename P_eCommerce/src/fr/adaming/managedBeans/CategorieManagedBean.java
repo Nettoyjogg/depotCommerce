@@ -11,6 +11,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
 import org.primefaces.model.UploadedFile;
 
 import fr.adaming.model.Categorie;
@@ -139,6 +140,7 @@ public class CategorieManagedBean implements Serializable{
 
 	public void rechercherCategorieParIdMB() {
 		this.categorie = caService.consulterCategorieParIDService(categorie, administrateur);
+		this.categorie.setImg("data:image/png;base64," + Base64.encodeBase64String(categorie.getPhoto()));
 		if (categorie == null) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La catégorie est null"));
 			indice = false;
@@ -149,6 +151,7 @@ public class CategorieManagedBean implements Serializable{
 	
 	public void modifierCategorieAutoMB() {
 		this.categorie=caService.consulterCategorieParIDService(categorie, administrateur);
+		this.categorie.setImg("data:image/png;base64," + Base64.encodeBase64String(categorie.getPhoto()));
 	}
 
 }

@@ -26,15 +26,15 @@ public class ProduitDaoImpl implements IProduitDao {
 		// Répérer un objet query
 		Query query = em.createQuery(req);
 
-		List<Produit> ListeProduit = query.getResultList();
+		List<Produit> listeProduit = query.getResultList();
 
-		for (Produit p : ListeProduit) {
+		for (Produit p : listeProduit) {
 
 			p.setImg("data:image/png;base64," + Base64.encodeBase64String(p.getPhoto()));
 
 		}
 
-		return ListeProduit;
+		return listeProduit;
 	}
 
 	@Override

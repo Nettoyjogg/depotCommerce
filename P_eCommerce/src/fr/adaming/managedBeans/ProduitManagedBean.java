@@ -1,9 +1,7 @@
 package fr.adaming.managedBeans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -11,10 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.codec.binary.Base64;
 import org.primefaces.model.UploadedFile;
-
 import fr.adaming.model.Administrateur;
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
@@ -51,7 +47,7 @@ public class ProduitManagedBean implements Serializable {
 	@PostConstruct // Cette annotation sert à dire que la méthode doit être
 	// exécutée après l'instanciation de l'objet.
 	public void init() {
-		this.listeProduit=pService.afficherProduitService();
+		this.listeProduit = pService.afficherProduitService();
 		maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		this.administrateur = (Administrateur) maSession.getAttribute("adminSession");
 	}
@@ -110,7 +106,7 @@ public class ProduitManagedBean implements Serializable {
 
 			// Mettre à jour la liste dans la sessin
 			maSession.setAttribute("produitSession", listep);
-			return "accueilproduit";
+			return "accueilproduitadmin";
 		} else {
 			// Ajouter un message d'erreur
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'Ajout du produit"));
@@ -176,7 +172,13 @@ public class ProduitManagedBean implements Serializable {
 		try {
 			categorie = caService.consulterCategorieParIDService(categorie);
 			this.produit.setCategorie(categorie);
+
 			this.listeProduit = pService.consulterProduitCategorieService(this.produit);
+			for (Produit p : listeProduit) {
+
+				p.setImg("data:image/png;base64," + Base64.encodeBase64String(p.getPhoto()));
+
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
