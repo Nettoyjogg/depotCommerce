@@ -30,6 +30,11 @@ public class ProduitServiceImpl implements IProduitService {
 	}
 
 	@Override
+	public List<Produit> afficherProduitService() {
+		return pDao.afficherProduitDao();
+	}
+
+	@Override
 	public Produit ajouterProduitService(Produit p, Categorie ca, Administrateur admin) {
 		if (admin.getIdAdmin() != 0) {
 			ca = caDao.consulterCategorieParIDDao(ca);

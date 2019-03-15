@@ -11,6 +11,8 @@ import fr.adaming.model.Produit;
 @Local
 public interface IProduitService {
 	public List<Produit> afficherProduitService(Administrateur admin);
+	// Redef pour client
+	public List<Produit> afficherProduitService();
 
 	public Produit ajouterProduitService(Produit p, Categorie ca, Administrateur admin);
 

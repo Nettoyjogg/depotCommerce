@@ -76,7 +76,12 @@ public class ProduitDaoImpl implements IProduitDao {
 
 	@Override
 	public Produit consulterProduitDao(Produit p) {
-		return em.find(Produit.class, p.getIdProduit());
+		/*String req = "SELECT p FROM Produit as p WHERE p.idProduit=:pId";
+		Query query = em.createQuery(req);
+		query.setParameter("pId", p.getIdProduit());
+		Produit pOut = (Produit) query.getSingleResult();
+		return pOut;*/
+		 return em.find(Produit.class, p.getIdProduit());
 	}
 
 	@Override

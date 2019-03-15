@@ -12,6 +12,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
 import org.primefaces.model.UploadedFile;
 
 import fr.adaming.model.Administrateur;
@@ -50,6 +51,7 @@ public class ProduitManagedBean implements Serializable {
 	@PostConstruct // Cette annotation sert à dire que la méthode doit être
 	// exécutée après l'instanciation de l'objet.
 	public void init() {
+		this.listeProduit=pService.afficherProduitService();
 		maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		this.administrateur = (Administrateur) maSession.getAttribute("adminSession");
 	}
@@ -161,6 +163,7 @@ public class ProduitManagedBean implements Serializable {
 
 	public void rechercherProduitParIdMB() {
 		this.produit = pService.consulterProduitService(produit, administrateur);
+		this.produit.setImg("data:image/png;base64," + Base64.encodeBase64String(produit.getPhoto()));
 		if (produit == null) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le produit n'existe pas"));
 			indice = false;
