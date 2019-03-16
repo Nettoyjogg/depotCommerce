@@ -43,6 +43,7 @@ public class ProduitDaoImpl implements IProduitDao {
 		return p;
 	}
 
+	@SuppressWarnings("finally")
 	@Override
 	public int modifierProduitDao(Produit p) {
 		// requete JPQL
@@ -56,10 +57,17 @@ public class ProduitDaoImpl implements IProduitDao {
 		query.setParameter("pQuantite", p.getQuantite());
 		query.setParameter("pSelectionne", p.isSelectionne());
 		query.setParameter("pPhoto", p.getPhoto());
-		query.setParameter("pIdCategorie", p.getCategorie().getIdCategorie());
-		query.setParameter("pId", p.getIdProduit());
-		int verif = query.executeUpdate();
-		return verif;
+	
+		try {
+			query.setParameter("pIdCategorie", p.getCategorie().getIdCategorie());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			query.setParameter("pId", p.getIdProduit());
+			int verif = query.executeUpdate();
+			return verif;
+		}
+	
 	}
 
 	@Override

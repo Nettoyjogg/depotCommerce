@@ -35,12 +35,14 @@ public class ProduitManagedBean implements Serializable {
 	private Categorie categorie;
 	private UploadedFile image;
 	private List<Produit> listeProduit;
+	private List<Categorie> listeCategorie;
 
 	// déclaration du constructeur vide
 	public ProduitManagedBean() {
 		super();
 		this.produit = new Produit();
 		this.categorie = new Categorie();
+		this.produit.setCategorie(categorie);
 		this.indice = false;
 	}
 
@@ -48,6 +50,7 @@ public class ProduitManagedBean implements Serializable {
 	// exécutée après l'instanciation de l'objet.
 	public void init() {
 		this.listeProduit = pService.afficherProduitService();
+		this.listeCategorie = caService.afficherCategorieService();
 		maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		this.administrateur = (Administrateur) maSession.getAttribute("adminSession");
 	}
@@ -94,6 +97,14 @@ public class ProduitManagedBean implements Serializable {
 		this.image = image;
 	}
 
+	public List<Categorie> getListeCategorie() {
+		return listeCategorie;
+	}
+
+	public void setListeCategorie(List<Categorie> listeCategorie) {
+		this.listeCategorie = listeCategorie;
+	}
+
 	// les méthodes métiers du Managed Bean
 	public String ajouterProduitMB() {
 		if (this.image != null) {
@@ -121,6 +132,7 @@ public class ProduitManagedBean implements Serializable {
 			this.produit.setPhoto(this.image.getContents());
 		}
 		categorie = caService.consulterCategorieParIDService(categorie);
+	
 		this.produit.setCategorie(categorie);
 		int verif = pService.modifierProduitService(produit, administrateur);
 		if (verif != 0) {
@@ -140,8 +152,8 @@ public class ProduitManagedBean implements Serializable {
 
 	public void modifierProduitAutoMB() {
 		categorie = caService.consulterCategorieParIDService(categorie);
-		this.produit.setCategorie(categorie);
 		this.produit = pService.consulterProduitService(produit, administrateur);
+		this.produit.getCategorie();
 		this.produit.setImg("data:image/png;base64," + Base64.encodeBase64String(produit.getPhoto()));
 	}
 
