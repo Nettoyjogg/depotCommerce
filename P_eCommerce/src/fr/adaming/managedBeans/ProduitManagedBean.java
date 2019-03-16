@@ -117,6 +117,9 @@ public class ProduitManagedBean implements Serializable {
 	}
 
 	public String modifierProduitMB() {
+		if(this.image!=null){
+			this.produit.setPhoto(this.image.getContents());
+		}
 		categorie = caService.consulterCategorieParIDService(categorie);
 		this.produit.setCategorie(categorie);
 		int verif = pService.modifierProduitService(produit, administrateur);
