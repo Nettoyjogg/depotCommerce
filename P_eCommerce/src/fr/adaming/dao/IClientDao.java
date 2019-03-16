@@ -9,5 +9,7 @@ public interface IClientDao {
 	public Client estExistant(Client c);
 	
 	public Client ajouterClientDao(Client c);
+	
+	public Client consulterClientParIdDao(Client c);
 
 }

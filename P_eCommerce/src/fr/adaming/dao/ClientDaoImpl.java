@@ -5,15 +5,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import fr.adaming.model.Adresse;
 import fr.adaming.model.Client;
 
 @Stateless
-public class ClientDaoImpl implements IClientDao{
-//instancier le context approprié
-	@PersistenceContext(unitName = "pu_commerce") 
-	
+public class ClientDaoImpl implements IClientDao {
+	// instancier le context approprié
+	@PersistenceContext(unitName = "pu_commerce")
+
 	private EntityManager em;
-	
+
 	@Override
 	public Client estExistant(Client c) {
 		// Requete JPQL
@@ -37,6 +38,11 @@ public class ClientDaoImpl implements IClientDao{
 	public Client ajouterClientDao(Client c) {
 		em.persist(c);
 		return c;
+	}
+
+	@Override
+	public Client consulterClientParIdDao(Client c) {
+		return em.find(Client.class, c.getIdClient());
 	}
 
 }
