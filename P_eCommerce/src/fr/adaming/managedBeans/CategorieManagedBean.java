@@ -108,6 +108,9 @@ public class CategorieManagedBean implements Serializable{
 	}
 
 	public String modifierCategorieMB() {
+		if(this.image!=null){
+			this.categorie.setPhoto(this.image.getContents());
+		}
 		int verif = caService.modifierCategorieService(categorie, administrateur);
 		if (verif != 0) {
 			// Récuperer la liste

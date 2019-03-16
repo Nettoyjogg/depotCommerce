@@ -14,7 +14,7 @@
 	<h:form>
 		<ui:include src="/resources/templates/headerclient.xhtml" />
 	</h:form>
-	<h1 style="color: blue; text-align: center;">Liste des catégories coté client</h1>
+	<h1 style="color: blue; text-align: center;">Liste des catégories </h1>
 	
 	<h:form>
 		<p:dataTable var="ca" value="#{caMB.listeCa}">
@@ -29,9 +29,7 @@
 			<p:column headerText="Photo">
 				<h:graphicImage value="#{ca.img}" />
 			</p:column>
-			<p:column headerText="Photo">
-				<h:graphicImage value="#{ca.img}" />
-			</p:column>
+
 			<p:column headerText="Description">
 				<h:outputText value="#{ca.description}" />
 			</p:column>

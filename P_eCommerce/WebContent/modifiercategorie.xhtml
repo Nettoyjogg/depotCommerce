@@ -19,15 +19,16 @@
 
 	<h1 style="color: red; text-align: center">Formulaire de
 		modification</h1>
-	<h:form>
+	<h:form enctype="multipart/form-data">
 		<h:panelGrid columns="2">
 		Id: <h:inputText value="#{caMB.categorie.idCategorie}">
 				<p:ajax event="keyup" listener="#{caMB.modifierCategorieAutoMB}"
-					update="idform, idform2" />
+					update="idform,idform1, idform2" />
 				<!-- Event : Blur  -->
 			</h:inputText>				
 		Nom: <h:inputText id="idform" value="#{caMB.categorie.nomCategorie}" />
-			<!-- 		Photo: <h:inputText value="#{caMB.categorie.photo}" /> -->
+			Photo avant: <h:graphicImage id="idform1" value="#{caMB.categorie.img}" />
+			Photo après <p:fileUpload value="#{caMB.image}" mode="simple"	skinSimple="true" />
 		Description: <h:inputText id="idform2"
 				value="#{caMB.categorie.description}" />
 

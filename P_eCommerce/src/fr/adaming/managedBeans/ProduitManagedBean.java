@@ -102,6 +102,7 @@ public class ProduitManagedBean implements Serializable {
 		Produit pAjout = pService.ajouterProduitService(produit, categorie, administrateur);
 		if (pAjout.getIdProduit() != 0) {
 			// Récuperer la liste des produits
+			
 			List<Produit> listep = pService.afficherProduitService(administrateur);
 
 			// Mettre à jour la liste dans la sessin
@@ -125,7 +126,7 @@ public class ProduitManagedBean implements Serializable {
 
 			// Mettre à jour la liste dans la sessin
 			maSession.setAttribute("produitSession", listep);
-			return "accueilproduit";
+			return "accueilproduitadmin";
 		} else {
 			// Ajouter un message d'erreur
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Modif a échoué"));
@@ -138,6 +139,7 @@ public class ProduitManagedBean implements Serializable {
 		categorie = caService.consulterCategorieParIDService(categorie);
 		this.produit.setCategorie(categorie);
 		this.produit = pService.consulterProduitService(produit, administrateur);
+		this.produit.setImg("data:image/png;base64," + Base64.encodeBase64String(produit.getPhoto()));
 	}
 
 	public String supprimerProduitMB() {
@@ -148,7 +150,7 @@ public class ProduitManagedBean implements Serializable {
 
 			// Mettre à jour la liste dans la sessin
 			maSession.setAttribute("produitSession", listep);
-			return "accueilproduit";
+			return "accueilproduitadmin";
 		} else {
 			// Ajouter un message d'erreur
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Suppression du produit à échouer"));

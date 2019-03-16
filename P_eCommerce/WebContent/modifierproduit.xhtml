@@ -17,11 +17,11 @@
 
 	<h1 style="color: red; text-align: center">Formulaire de
 		modification</h1>
-	<h:form>
+	<h:form enctype="multipart/form-data">
 		<h:panelGrid columns="2">
 		Id Produit: <h:inputText value="#{pMB.produit.idProduit}">
 				<p:ajax event="keyup" listener="#{pMB.modifierProduitAutoMB}"
-					update="designationproduit, descriptionproduit, prixproduit,quantiteproduit,categorieproduit " />
+					update="designationproduit, descriptionproduit, prixproduit,quantiteproduit,categorieproduit,imageproduit " />
 
 			</h:inputText>				
 
@@ -42,7 +42,8 @@
 		Catégorie: <h:inputText id="categorieproduit"
 				value="#{pMB.categorie.idCategorie}" />
 
-			<!-- Photo: <h:inputText value="#{pMB.produit.photo}" /> -->
+		Photo avant: <h:graphicImage id="imageproduit" value="#{pMB.produit.img}" />
+			Photo après <p:fileUpload value="#{pMB.image}" mode="simple"	skinSimple="true" />
 
 
 			<h:commandButton value="modifier" action="#{pMB.modifierProduitMB}"></h:commandButton>
