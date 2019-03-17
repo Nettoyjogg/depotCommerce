@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -134,6 +136,12 @@ public class ListeCommandeManagedBean implements Serializable {
 		this.listeLigneCommande = listeLigneCommande;
 	}
 
+	@PostConstruct // Cette annotation sert à dire que la méthode doit être
+	// exécutée après l'instanciation de l'objet.
+	public void init() {
+		maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+	}
+
 	// Méthodes :
 
 	public String ajouterLigneCommandeMB() {
@@ -206,13 +214,19 @@ public class ListeCommandeManagedBean implements Serializable {
 	}
 
 	public String lierClientCommandeMB() {
-		cService.ajouterClientService(client, adresse);
+
+		int verif;
 		this.listeLigneCommande = (List<LigneCommande>) maSession.getAttribute("listeLigneCommandeSession");
 		commande.setIdCommande(listeLigneCommande.get(0).getCommande().getIdCommande());
 		coService.consulterCommandeParIDService(commande);
-		// Rajouter un if(isExistClientSession....) pour choisir entre remplir
-		// le formulaire client ou connecter un client.
-		int verif = coService.ajouterClientCommandeService(commande, client);
+		if ((Client) maSession.getAttribute("clientSession") != null) {
+			this.client = (Client) maSession.getAttribute("clientSession");
+			verif = coService.ajouterClientCommandeService(commande, client);
+		} else {
+			cService.ajouterClientService(client, adresse);
+			verif = coService.ajouterClientCommandeService(commande, client);
+		}
+
 		if (verif != 0) {
 			return "accueilproduit";
 		} else {

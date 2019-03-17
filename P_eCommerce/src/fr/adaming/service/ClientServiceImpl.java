@@ -17,7 +17,7 @@ public class ClientServiceImpl implements IClientService {
 	@Override
 	public Client estExistantService(Client c) {
 
-		return cDao.ajouterClientDao(c);
+		return cDao.estExistant(c);
 	}
 
 	@Override

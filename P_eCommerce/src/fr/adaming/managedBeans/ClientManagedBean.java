@@ -15,7 +15,7 @@ import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "cMB")
 @RequestScoped
-public class ClientManagedBean implements Serializable{
+public class ClientManagedBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,26 +30,24 @@ public class ClientManagedBean implements Serializable{
 	// Déclaration des attributs
 	private Client client;
 
-	
-	//déclaration du constructeur
+	// déclaration du constructeur
 	public ClientManagedBean() {
 		super();
 		this.client = new Client();
 	}
 
-//getter et setter
+	// getter et setter
 	public Client getClient() {
 		return client;
 	}
 
-
 	public void setClient(Client client) {
 		this.client = client;
 	}
-	
-	//méthodes et métiers
-	public String seConnecter() {
-		//sedéconnecter d'une session antérieure aucasou
+
+	// méthodes et métiers
+	public String connecterClient() {
+		// sedéconnecter d'une session antérieure aucasou
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		// chercher le administrateur par son mail et mdp
 		Client cOut = cService.estExistantService(client);
@@ -57,21 +55,27 @@ public class ClientManagedBean implements Serializable{
 		if (cOut != null) {
 			// Récuprer les différentes liste sur la session de ce
 			// administrateur
-			//------------------------------------------------Il va falloir rédéfinir les méthodes sans les admins
-//			List<Categorie> liste = caService.afficherCategorieService(adminOut);
-//			List<Produit> listep = pService.afficherProduitService(adminOut);
+			// ------------------------------------------------Il va falloir
+			// rédéfinir les méthodes sans les admins
+			// List<Categorie> liste =
+			// caService.afficherCategorieService(adminOut);
+			// List<Produit> listep = pService.afficherProduitService(adminOut);
 
 			// Mettre la liste dans la session
-//			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categorieSession", liste);
-//
-//			// Mettre la liste dans la session
-//			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitSession", listep);
+			// FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categorieSession",
+			// liste);
+			//
+			// // Mettre la liste dans la session
+			// FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitSession",
+			// listep);
 
 			// Mettre le administrateur dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("clientSession", cOut);
+
 			return "accueilclient";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le mot de passe ou mail est mauvais"));
+
 			return "accueilclient";
 		}
 	}
@@ -79,8 +83,7 @@ public class ClientManagedBean implements Serializable{
 	public String seDeconnecter() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "accueilclient";
-		
+
 	}
 
-	
 }

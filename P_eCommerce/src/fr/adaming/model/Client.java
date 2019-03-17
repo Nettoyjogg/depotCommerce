@@ -31,9 +31,8 @@ public class Client implements Serializable {
 	private String email;
 	@Column(name = "tel_c")
 	private String tel;
-	@Column(name="mdp_c")
+	@Column(name = "mdp_c")
 	private String mdpClient;
-
 
 	// transformation de l'association UML en JAVA
 	@OneToMany(mappedBy = "client")
@@ -121,9 +120,7 @@ public class Client implements Serializable {
 	@Override
 	public String toString() {
 		return "Client [idClient=" + idClient + ", nomClient=" + nomClient + ", adresse=" + adresse + ", email=" + email
-				+ ", tel=" + tel + ", mdpClient=" + mdpClient + ", listeCommande=" + listeCommande + "]";
+				+ ", tel=" + tel + ", mdpClient=" + mdpClient + "]";
 	}
-
-
 
 }
