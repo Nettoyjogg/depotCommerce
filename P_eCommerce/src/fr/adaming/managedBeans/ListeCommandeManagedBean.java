@@ -189,14 +189,9 @@ public class ListeCommandeManagedBean implements Serializable {
 								// pour
 								// faire fonctionner ces méthodes
 			int verif = pService.modifierProduitService(produit, admin);
-			System.out.println("++++++++++++++++++++++++++++++++++" + panier);
 			this.listeLigneCommande.add(ligneCommande);
-			System.out.println("2************************************************************");
-			System.out.println(panier);
 			panier.getListeLigneCommande().addAll(listeLigneCommande);
 			maSession.setAttribute("panierSession", panier);
-
-			System.out.println("++++++++++++++++++++++++++++++++++" + panier);
 			if (verif != 0) {
 				return "accueilproduit";
 			} else {
