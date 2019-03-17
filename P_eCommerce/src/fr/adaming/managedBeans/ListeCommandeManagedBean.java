@@ -2,6 +2,7 @@ package fr.adaming.managedBeans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import fr.adaming.model.Adresse;
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
+import fr.adaming.model.Panier;
 import fr.adaming.model.Produit;
 import fr.adaming.service.IClientService;
 import fr.adaming.service.ICommandeService;
@@ -47,6 +49,7 @@ public class ListeCommandeManagedBean implements Serializable {
 	private Date date;
 	private Client client;
 	private Adresse adresse;
+	private Panier panier;
 
 	// Constructeur vide
 	public ListeCommandeManagedBean() {
@@ -59,13 +62,21 @@ public class ListeCommandeManagedBean implements Serializable {
 		this.date = new Date();
 		this.client = new Client();
 		this.adresse = new Adresse();
-
+		this.panier = new Panier();
 	}
 
 	// Getters and Setters
 
 	public HttpSession getMaSession() {
 		return maSession;
+	}
+
+	public Panier getPanier() {
+		return panier;
+	}
+
+	public void setPanier(Panier panier) {
+		this.panier = panier;
 	}
 
 	public Adresse getAdresse() {
@@ -155,17 +166,20 @@ public class ListeCommandeManagedBean implements Serializable {
 					new FacesMessage("Ce produit n'est pas en stock ou n'existe pas"));
 			return "testajoutlc";
 		}
-		try {
-			listeLigneCommande.addAll((List<LigneCommande>) maSession.getAttribute("listeLigneCommandeSession"));
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (maSession.getAttribute("panierSession") != null) {
+			this.panier = (Panier) maSession.getAttribute("panierSession");
+			this.panier.getListeLigneCommande();
+		} else {
+			this.panier = new Panier();
+			List<LigneCommande> listtest = new ArrayList<LigneCommande>();
+			this.panier.setListeLigneCommande(listtest);
 		}
 		if (test >= 0) {
-
 			// On ajoute a lc en mettant le prix
 			ligneCommande.setPrix(produit.getPrix() * ligneCommande.getQuantite());
 			lcService.AjouterLigneCommandeService(ligneCommande);
 			lcService.LierLigneCommandeProduitService(ligneCommande, produit);
+
 			// Ici on, modifie la quantité du produit dans la BD après la
 			// commande (en vrai il faudra le faire à la confirmation de la
 			// commande)
@@ -173,10 +187,16 @@ public class ListeCommandeManagedBean implements Serializable {
 			admin.setIdAdmin(1);// C'est moche, mais c'est pour le test, un
 								// genre d'admin "intégré", sans mail...
 								// pour
-								// faire fonctionner ces méthods
+								// faire fonctionner ces méthodes
 			int verif = pService.modifierProduitService(produit, admin);
+			System.out.println("++++++++++++++++++++++++++++++++++" + panier);
 			this.listeLigneCommande.add(ligneCommande);
-			maSession.setAttribute("listeLigneCommandeSession", listeLigneCommande);
+			System.out.println("2************************************************************");
+			System.out.println(panier);
+			panier.getListeLigneCommande().addAll(listeLigneCommande);
+			maSession.setAttribute("panierSession", panier);
+
+			System.out.println("++++++++++++++++++++++++++++++++++" + panier);
 			if (verif != 0) {
 				return "accueilproduit";
 			} else {
@@ -192,9 +212,10 @@ public class ListeCommandeManagedBean implements Serializable {
 
 	public String lierCommandeLigneCommandeMB() {
 		int c = 0;
-		this.listeLigneCommande = (List<LigneCommande>) maSession.getAttribute("listeLigneCommandeSession");
+		this.panier = (Panier) maSession.getAttribute("panierSession");
+
 		try {
-			c = listeLigneCommande.size();
+			c = panier.getListeLigneCommande().size();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -203,8 +224,8 @@ public class ListeCommandeManagedBean implements Serializable {
 			commande.setDateCommande(date);
 			Commande com = coService.ajouterCommandeService(commande);
 			com = coService.consulterCommandeParIDService(com);
-			for (int i = 0; i < listeLigneCommande.size(); i++) {
-				lcService.LierLigneCommandeCommandeService(listeLigneCommande.get(i), com);
+			for (int i = 0; i < panier.getListeLigneCommande().size(); i++) {
+				lcService.LierLigneCommandeCommandeService(panier.getListeLigneCommande().get(i), com);
 			}
 			return "accueilproduit";
 		} else {
@@ -216,8 +237,8 @@ public class ListeCommandeManagedBean implements Serializable {
 	public String lierClientCommandeMB() {
 
 		int verif;
-		this.listeLigneCommande = (List<LigneCommande>) maSession.getAttribute("listeLigneCommandeSession");
-		commande.setIdCommande(listeLigneCommande.get(0).getCommande().getIdCommande());
+		this.panier = (Panier) maSession.getAttribute("panierSession");
+		commande.setIdCommande(panier.getListeLigneCommande().get(0).getCommande().getIdCommande());
 		coService.consulterCommandeParIDService(commande);
 		if ((Client) maSession.getAttribute("clientSession") != null) {
 			this.client = (Client) maSession.getAttribute("clientSession");
@@ -234,4 +255,5 @@ public class ListeCommandeManagedBean implements Serializable {
 			return "testclient";
 		}
 	}
+
 }

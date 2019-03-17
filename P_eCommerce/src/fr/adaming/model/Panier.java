@@ -1,7 +1,10 @@
 package fr.adaming.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 
 public class Panier implements Serializable{
 
@@ -13,7 +16,7 @@ public class Panier implements Serializable{
 	public Panier() {
 		super();
 	}
-
+	
 	public List<LigneCommande> getListeLigneCommande() {
 		return listeLigneCommande;
 	}
