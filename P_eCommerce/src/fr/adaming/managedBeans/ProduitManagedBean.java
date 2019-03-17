@@ -184,6 +184,17 @@ public class ProduitManagedBean implements Serializable {
 			indice = true;
 		}
 	}
+	
+	public void rechercherProduitClientParIdMB() {
+		this.produit = pService.consulterProduitService(produit);
+		this.produit.setImg("data:image/png;base64," + Base64.encodeBase64String(produit.getPhoto()));
+		if (produit == null) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le produit n'existe pas"));
+			indice = false;
+		} else {
+			indice = true;
+		}
+	}
 
 	public void rechercherProduitCategorieMB() {
 		try {

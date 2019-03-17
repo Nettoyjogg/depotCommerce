@@ -22,15 +22,8 @@
 		<h:panelGrid columns="2">
 
 			<p:selectOneMenu  id="categorie" value="#{caMB.categorie.idCategorie}" panelStyle="width:180px">
-            <f:selectItems itemLabel="#{c.nomCategorie}" itemValue="#{c.idCategorie}" value="#{caMB.listeCa}" var="c"></f:selectItems>
+            <f:selectItems itemLabel="#{v.nomCategorie}" itemValue="#{v.idCategorie}" value="#{caMB.listeCa}" var="v"></f:selectItems>
             </p:selectOneMenu>
-		
-<!-- 					<label for="pIdc">Id client</label> -->
-<!-- 			 <select class="form-control" name="pIdc" required="required"> -->
-<!-- 				<c:forEach items="${liste}" var="c"> -->
-<!-- 					<option>${c.idc}</option> -->
-<!-- 				</c:forEach> -->
-<!-- 			</select> -->
 			<h:commandButton value="chercher"
 				action="#{caMB.rechercherCategorieClientParIdMB}"></h:commandButton>
 

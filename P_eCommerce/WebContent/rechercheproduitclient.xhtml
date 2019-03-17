@@ -12,7 +12,7 @@
 <h:body>
 
 	<h:form>
-		<ui:include src="/resources/templates/header.xhtml" />
+			<ui:include src="/resources/templates/headerclient.xhtml" />
 	</h:form>
 
 	<h1 style="color: red; text-align: center">Rechercher un produit
@@ -23,7 +23,7 @@
             <f:selectItems itemLabel="#{v.designation}" itemValue="#{v.idProduit}" value="#{pMB.listeProduit}" var="v"></f:selectItems>
             </p:selectOneMenu>
 			<h:commandButton value="rechercher"
-				action="#{pMB.rechercherProduitParIdMB}"></h:commandButton>
+				action="#{pMB.rechercherProduitClientParIdMB}"></h:commandButton>
 
 		</h:panelGrid>
 	</h:form>

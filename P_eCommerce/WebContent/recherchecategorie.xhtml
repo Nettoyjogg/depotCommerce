@@ -19,7 +19,9 @@
 	<h1 style="color: red; text-align: center">Formulaire de recherche</h1>
 	<h:form>
 		<h:panelGrid columns="2">
-		Id: <h:inputText value="#{caMB.categorie.idCategorie}" />
+			<p:selectOneMenu  id="categorie" value="#{caMB.categorie.idCategorie}" panelStyle="width:180px">
+            <f:selectItems itemLabel="#{v.nomCategorie}" itemValue="#{v.idCategorie}" value="#{caMB.listeCa}" var="v"></f:selectItems>
+            </p:selectOneMenu>
 			<h:commandButton value="chercher"
 				action="#{caMB.rechercherCategorieParIdMB}"></h:commandButton>
 
