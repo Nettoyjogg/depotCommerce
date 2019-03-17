@@ -26,6 +26,7 @@ public class ClientManagedBean implements Serializable {
 	private ICategorieService caService;
 	@EJB
 	private IProduitService pService;
+	
 
 	// Déclaration des attributs
 	private Client client;
@@ -70,7 +71,12 @@ public class ClientManagedBean implements Serializable {
 			// listep);
 
 			// Mettre le administrateur dans la session
+			
+			
+			
+
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("clientSession", cOut);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Vous êtes connecté"));
 
 			return "accueilclient";
 		} else {
@@ -80,8 +86,9 @@ public class ClientManagedBean implements Serializable {
 		}
 	}
 
-	public String seDeconnecter() {
+	public String seDeconnecterClient() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le client s'est déconnecté"));
 		return "accueilclient";
 
 	}

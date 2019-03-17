@@ -76,6 +76,7 @@ public class AdministrateurManagedBean implements Serializable {
 
 	public String seDeconnecter() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'admin s'est déconnecté"));
 		return "accueilclient";
 		
 	}

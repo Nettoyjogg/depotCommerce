@@ -151,6 +151,18 @@ public class CategorieManagedBean implements Serializable{
 			indice = true;
 		}
 	}
+	public void rechercherCategorieClientParIdMB() {
+		this.categorie = caService.consulterCategorieParIDService(categorie);
+		this.categorie.setImg("data:image/png;base64," + Base64.encodeBase64String(categorie.getPhoto()));
+		if (categorie == null) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La catégorie est null"));
+			indice = false;
+		} else {
+			indice = true;
+		}
+	}
+	
+	
 	
 	public void modifierCategorieAutoMB() {
 		this.categorie=caService.consulterCategorieParIDService(categorie, administrateur);

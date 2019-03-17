@@ -13,14 +13,13 @@
 <h:body>
 
 	<ui:composition>
-
 		<b:navBar brand="Commerce" brandHref="accueilclient.xhtml"
 			id="dropMenuExample" contentDisabled="#{navBarBean.navBarDisabled}">
 			<b:navbarLinks contentDisabled="#{navBarBean.navBarLinksDisabled}">
 				<b:dropMenu value="Categorie"
 					contentDisabled="#{navBarBean.dropMenuDisabled}">
 					<b:navLink value="Accueil" href="accueilclient.xhtml"></b:navLink>
-					<b:navLink value="Rechercher" href="recherchecategorie.xhtml"></b:navLink>
+					<b:navLink value="Rechercher" href="recherchecategorieclient.xhtml"></b:navLink>
 
 				</b:dropMenu>
 				<b:dropMenu value="Produit"
@@ -36,39 +35,34 @@
 					<b:navLink value="TestCLient" href="testclient.xhtml"></b:navLink>
 				</b:dropMenu>
 
-				<b:dropMenu value="Deco/Reco"
+				<b:dropMenu value="Deco/Reco Client"
 					contentDisabled="#{navBarBean.dropMenuDisabled}">
 
 					<b:navCommandLink value="Deconnexion Client"
-						action="#{cMB.seDeconnecter}"></b:navCommandLink>
+						action="#{cMB.seDeconnecterClient}"></b:navCommandLink>
+					
 					<b:dropMenu value="Connexion Client"
 						contentDisabled="#{navBarBean.dropMenuDisabled}">
-						<b:form>
-							<b:inputText name="login" value="#{cMB.client.email}"></b:inputText>
-							<b:inputSecret name="mdp" value="#{cMB.client.mdpClient}"></b:inputSecret>
-							<b:commandButton value="Se connecter"
-								action="#{cMB.connecterClient}"></b:commandButton>
-						</b:form>
+							<b:inputText name="login" value="#{cMB.client.email}"/>
+							<b:inputSecret name="mdp" value="#{cMB.client.mdpClient}"/>
+							<b:navCommandLink value="Se connecter"
+								action="#{cMB.connecterClient}"/>
 					</b:dropMenu>
-					<b:navLink></b:navLink>
-					<b:dropMenu value="Deco/Reco"
-						contentDisabled="#{navBarBean.dropMenuDisabled}">
+				
+					</b:dropMenu>
+					<b:dropMenu value="Deco/Reco Admin"
+					contentDisabled="#{navBarBean.dropMenuDisabled}">
 						<b:navCommandLink value="Deconnexion Admin"
 							action="#{adminMB.seDeconnecter}"></b:navCommandLink>
-
 						<b:dropMenu value="Connexion Admin"
-							contentDisabled="#{navBarBean.dropMenuDisabled}">
-							<b:form>
-								<b:inputText name="login"
-									value="#{adminMB.administrateur.mailAdmin}"></b:inputText>
-								<b:inputSecret name="mdp" value="#{adminMB.administrateur.mdp}"></b:inputSecret>
-								<b:commandButton value="Se connecter"
-									action="#{adminMB.seConnecter}"></b:commandButton>
-							</b:form>
-						</b:dropMenu>
-
+						contentDisabled="#{navBarBean.dropMenuDisabled}">
+							<b:inputText name="login"
+								value="#{adminMB.administrateur.mailAdmin}"/>
+							<b:inputSecret name="mdp" value="#{adminMB.administrateur.mdp}"/>
+							<b:navCommandLink value="Se connecter"
+								action="#{adminMB.seConnecter}"/>
 					</b:dropMenu>
-				</b:dropMenu>
+					</b:dropMenu>
 			</b:navbarLinks>
 		</b:navBar>
 
