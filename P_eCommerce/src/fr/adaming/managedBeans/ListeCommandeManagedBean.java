@@ -254,7 +254,7 @@ public class ListeCommandeManagedBean implements Serializable {
 	public String validerPanierMB() {
 		int test;
 		int w = 0;
-		int verifQuantite = 0;
+		int verifQuantite = 1;
 		String message = null;
 		Commande coOut = null;
 		this.panier = (Panier) maSession.getAttribute("panierSession");
@@ -271,8 +271,6 @@ public class ListeCommandeManagedBean implements Serializable {
 			test = produit.getQuantite() - panier.getListeLigneCommande().get(i).getQuantite();
 			if (test < 0) {
 				verifQuantite = 0;
-			} else {
-				verifQuantite = 1;
 			}
 
 		}
@@ -361,6 +359,7 @@ public class ListeCommandeManagedBean implements Serializable {
 
 			}
 			this.panier = new Panier();
+			panier.setListeLigneCommande(new ArrayList<>());
 			maSession.setAttribute("panierSession", panier);
 			return "accueilproduit";
 		} else {
