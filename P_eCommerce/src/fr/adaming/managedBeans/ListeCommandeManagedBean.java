@@ -225,7 +225,13 @@ public class ListeCommandeManagedBean implements Serializable {
 			this.client = (Client) maSession.getAttribute("clientSession");
 			cService.consulterClientParIdService(client);
 			for (int i = 0; i < panier.getListeLigneCommande().size(); i++) {
-				this.panier.getListeLigneCommande().get(i).getCommande().setClient(client);
+				try {
+					this.panier.getListeLigneCommande().get(i).getCommande().setClient(client);
+				} catch (Exception e) {
+					e.printStackTrace();
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Commande non validée"));
+					return "accueilproduit";
+				}
 			}
 			verif = 1;
 		} else {
