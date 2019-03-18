@@ -78,8 +78,9 @@ public class Commande implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Commande [idCommande=" + idCommande + ", dateCommande=" + dateCommande + "]";
+		return "Commande [idCommande=" + idCommande + ", dateCommande=" + dateCommande + ", client=" + client + "]";
 	}
+	
 	
 	//transformation de l'association UML en JAVA
 	
