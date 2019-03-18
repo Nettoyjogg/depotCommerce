@@ -45,4 +45,9 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService {
 		return lcDao.LierLigneCommandeProduitDao(lc);
 	}
 
+	@Override
+	public int supprimerLigneCommandeService(LigneCommande lc) {
+		return lcDao.SupprimerLigneCommandeDao(lc);
+	}
+
 }

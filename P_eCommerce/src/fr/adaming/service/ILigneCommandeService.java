@@ -17,4 +17,6 @@ public interface ILigneCommandeService {
 	public int LierLigneCommandeCommandeService(LigneCommande lc, Commande co);
 	
 	public int LierLigneCommandeProduitService(LigneCommande lc, Produit p);
+	
+	public int supprimerLigneCommandeService(LigneCommande lc);
 }

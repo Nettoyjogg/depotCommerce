@@ -12,4 +12,6 @@ public interface ILigneCommandeDao {
 	
 	public int LierLigneCommandeProduitDao(LigneCommande lc);
 	
+	public int SupprimerLigneCommandeDao(LigneCommande lc);
+	
 }

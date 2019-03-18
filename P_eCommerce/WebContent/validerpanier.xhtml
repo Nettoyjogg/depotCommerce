@@ -22,13 +22,10 @@
 	<h:form enctype="multipart/form-data">
 		<h:panelGrid columns="2">
 
-		IdProduit: <h:inputText value="#{lcMB.produit.idProduit}" />
-	
-		
-		Quantité Produit: <h:inputText value="#{lcMB.ligneCommande.quantite}" />
 
 			<!-- Pour envoyer directement en Post -->
-			<h:commandButton value="Ajouter" action="#{lcMB.ajouterLigneCommandeMB}"></h:commandButton>
+			<h:commandButton value="Valider Commande"
+				action="#{lcMB.validerPanierMB}"></h:commandButton>
 
 		</h:panelGrid>
 	</h:form>

@@ -12,4 +12,6 @@ public interface ICommandeService {
 	public Commande consulterCommandeParIDService(Commande co);
 	
 	public int ajouterClientCommandeService(Commande co, Client c);
+	
+	public int supprimerCommandeService(Commande co);
 }

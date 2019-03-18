@@ -12,4 +12,6 @@ public interface ICommandeDao {
 	public Commande consulterCommandeParIDDao(Commande co);
 	
 	public int ajouterClientCommandeDao(Commande co);
+	
+	public int supprimerCommandeDao(Commande co);
 }

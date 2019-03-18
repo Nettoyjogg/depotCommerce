@@ -40,4 +40,12 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 		return verif;
 	}
 
+	@Override
+	public int SupprimerLigneCommandeDao(LigneCommande lc) {
+		Query req = em.createQuery("DELETE FROM LigneCommande as lc WHERE lc.idLigneCommande=:pId");
+		req.setParameter("pId", lc.getIdLigneCommande());
+		int verif = req.executeUpdate();
+		return verif;
+	}
+
 }

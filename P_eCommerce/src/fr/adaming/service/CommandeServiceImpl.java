@@ -32,4 +32,9 @@ public class CommandeServiceImpl implements ICommandeService {
 		return coDao.ajouterClientCommandeDao(co);
 	}
 
+	@Override
+	public int supprimerCommandeService(Commande co) {
+		return coDao.supprimerCommandeDao(co);
+	}
+
 }

@@ -7,8 +7,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Client;
+import fr.adaming.model.Panier;
 import fr.adaming.service.ICategorieService;
 import fr.adaming.service.IClientService;
 import fr.adaming.service.IProduitService;
@@ -26,20 +28,30 @@ public class ClientManagedBean implements Serializable {
 	private ICategorieService caService;
 	@EJB
 	private IProduitService pService;
-	
 
 	// Déclaration des attributs
 	private Client client;
+	private HttpSession maSession;
 
 	// déclaration du constructeur
 	public ClientManagedBean() {
 		super();
 		this.client = new Client();
+		this.maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 	}
 
 	// getter et setter
+
 	public Client getClient() {
 		return client;
+	}
+
+	public HttpSession getMaSession() {
+		return maSession;
+	}
+
+	public void setMaSession(HttpSession maSession) {
+		this.maSession = maSession;
 	}
 
 	public void setClient(Client client) {
@@ -49,7 +61,7 @@ public class ClientManagedBean implements Serializable {
 	// méthodes et métiers
 	public String connecterClient() {
 		// sedéconnecter d'une session antérieure aucasou
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+
 		// chercher le administrateur par son mail et mdp
 		Client cOut = cService.estExistantService(client);
 
@@ -63,17 +75,13 @@ public class ClientManagedBean implements Serializable {
 			// List<Produit> listep = pService.afficherProduitService(adminOut);
 
 			// Mettre la liste dans la session
-			// FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categorieSession",
-			// liste);
+			Panier panier = (Panier) maSession.getAttribute("panierSession");
+			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 			//
 			// // Mettre la liste dans la session
-			// FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitSession",
-			// listep);
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierSession", panier);
 
 			// Mettre le administrateur dans la session
-			
-			
-			
 
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("clientSession", cOut);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Vous êtes connecté"));

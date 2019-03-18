@@ -2,10 +2,8 @@ package fr.adaming.managedBeans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -24,6 +22,7 @@ import fr.adaming.service.IClientService;
 import fr.adaming.service.ICommandeService;
 import fr.adaming.service.ILigneCommandeService;
 import fr.adaming.service.IProduitService;
+import fr.adaming.service.SendMailService;
 
 @ManagedBean(name = "lcMB")
 @RequestScoped
@@ -179,26 +178,11 @@ public class ListeCommandeManagedBean implements Serializable {
 			ligneCommande.setPrix(produit.getPrix() * ligneCommande.getQuantite());
 			lcService.AjouterLigneCommandeService(ligneCommande);
 			lcService.LierLigneCommandeProduitService(ligneCommande, produit);
-
-			// Ici on, modifie la quantité du produit dans la BD après la
-			// commande (en vrai il faudra le faire à la confirmation de la
-			// commande)
-			produit.setQuantite(produit.getQuantite() - ligneCommande.getQuantite());
-			admin.setIdAdmin(1);// C'est moche, mais c'est pour le test, un
-								// genre d'admin "intégré", sans mail...
-								// pour
-								// faire fonctionner ces méthodes
-			int verif = pService.modifierProduitService(produit, admin);
 			this.listeLigneCommande.add(ligneCommande);
 			panier.getListeLigneCommande().addAll(listeLigneCommande);
 			maSession.setAttribute("panierSession", panier);
-			if (verif != 0) {
-				return "accueilproduit";
-			} else {
-				// Ajouter un message d'erreur
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Ajout a échoué"));
-				return "testajoutlc";
-			}
+			return "accueilproduit";
+
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pas assez de produit en stock"));
 			return "testajoutlc";
@@ -233,8 +217,12 @@ public class ListeCommandeManagedBean implements Serializable {
 
 		int verif;
 		this.panier = (Panier) maSession.getAttribute("panierSession");
-		commande.setIdCommande(panier.getListeLigneCommande().get(0).getCommande().getIdCommande());
-		coService.consulterCommandeParIDService(commande);
+		try {
+			commande.setIdCommande(panier.getListeLigneCommande().get(0).getCommande().getIdCommande());
+			coService.consulterCommandeParIDService(commande);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		if ((Client) maSession.getAttribute("clientSession") != null) {
 			this.client = (Client) maSession.getAttribute("clientSession");
 			verif = coService.ajouterClientCommandeService(commande, client);
@@ -249,6 +237,83 @@ public class ListeCommandeManagedBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pas de client choisi"));
 			return "testclient";
 		}
+	}
+
+	public String validerPanierMB() {
+		int test;
+		int w = 0;
+		int verifQuantite = 0;
+		String message = null;
+		Commande coOut = null;
+		this.panier = (Panier) maSession.getAttribute("panierSession");
+		try {
+			coOut = coService.consulterCommandeParIDService(panier.getListeLigneCommande().get(0).getCommande());
+			message = "Bonjour Mme/Mr " + coOut.getClient().getNomClient()
+					+ "\n Nous vous informons que votre commande: " + coOut.getIdCommande() + " passée le "
+					+ coOut.getDateCommande() + " a bien été validée.\n Nous esperons que vos articles: "
+					+ panier.getListeLigneCommande() + " vous plairont. \n A bientot !";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			w = panier.getListeLigneCommande().size();
+		} catch (Exception e) {
+			w = 0;
+			verifQuantite = 2;
+			e.printStackTrace();
+		}
+		for (int i = 0; i < w; i++) {
+			produit = pService.consulterProduitService(panier.getListeLigneCommande().get(i).getProduit());
+			test = produit.getQuantite() - panier.getListeLigneCommande().get(i).getQuantite();
+			if (test < 0) {
+				verifQuantite = 0;
+			} else {
+				verifQuantite = 1;
+			}
+
+		}
+
+		if (verifQuantite == 1) {
+			try {
+				SendMailService sm = new SendMailService();
+				sm.sendMail(coOut.getClient().getEmail(), message);
+				// Ici on, modifie la quantité du produit dans la BD
+				for (int i = 0; i < panier.getListeLigneCommande().size(); i++) {
+					produit = pService.consulterProduitService(panier.getListeLigneCommande().get(i).getProduit());
+					produit.setQuantite(produit.getQuantite() - panier.getListeLigneCommande().get(i).getQuantite());
+					admin.setIdAdmin(1);// C'est moche, mais c'est pour le
+										// test
+					pService.modifierProduitService(produit, admin);
+				}
+				this.panier = new Panier();
+				maSession.setAttribute("panierSession", panier);
+				return "accueilclient";
+			} catch (Exception e) {
+				e.printStackTrace();
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage("message non envoyé, annulation validation commande"));
+				return "validerpanier";
+			}
+		}
+		if (verifQuantite == 0) {
+			for (int i = 0; i < panier.getListeLigneCommande().size(); i++) {
+				produit = pService.consulterProduitService(panier.getListeLigneCommande().get(i).getProduit());
+				test = produit.getQuantite() - panier.getListeLigneCommande().get(i).getQuantite();
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage("Le produit " + produit.getDesignation() + " ayant l'id "
+								+ produit.getIdProduit() + "n'est plus disponible en stock"));
+				lcService.supprimerLigneCommandeService(panier.getListeLigneCommande().get(i));
+				coService.supprimerCommandeService(coOut);
+			}
+			this.panier = new Panier();
+			maSession.setAttribute("panierSession", panier);
+			return "accueilproduit";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Vous n'avez pas commandé de produit"));
+			return "accueilproduit";
+		}
+
 	}
 
 }

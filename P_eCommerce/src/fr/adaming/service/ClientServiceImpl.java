@@ -2,7 +2,6 @@ package fr.adaming.service;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-
 import fr.adaming.dao.IClientDao;
 import fr.adaming.model.Adresse;
 import fr.adaming.model.Client;
@@ -30,5 +29,5 @@ public class ClientServiceImpl implements IClientService {
 	public Client consulterClientParIdService(Client c) {
 		return cDao.consulterClientParIdDao(c);
 	}
-
+		
 }

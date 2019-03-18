@@ -26,9 +26,18 @@ public class CommandeDaoImpl implements ICommandeDao {
 
 	@Override
 	public int ajouterClientCommandeDao(Commande co) {
-		Query req = em.createQuery("UPDATE Commande as co SET co.client.idClient=:pClient WHERE co.idCommande=:pIdCommande");
+		Query req = em
+				.createQuery("UPDATE Commande as co SET co.client.idClient=:pClient WHERE co.idCommande=:pIdCommande");
 		req.setParameter("pClient", co.getClient().getIdClient());
 		req.setParameter("pIdCommande", co.getIdCommande());
+		int verif = req.executeUpdate();
+		return verif;
+	}
+
+	@Override
+	public int supprimerCommandeDao(Commande co) {
+		Query req = em.createQuery("DELETE FROM Commande as co WHERE co.idCommande=:pId");
+		req.setParameter("pId", co.getIdCommande());
 		int verif = req.executeUpdate();
 		return verif;
 	}
