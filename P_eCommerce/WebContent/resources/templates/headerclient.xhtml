@@ -41,30 +41,28 @@
 					contentDisabled="#{navBarBean.dropMenuDisabled}">
 
 					<b:navCommandLink value="Deconnexion Client"
-						action="#{cMB.seDeconnecterClient}"></b:navCommandLink>
-					
-					<b:dropMenu value="Connexion Client"
-						contentDisabled="#{navBarBean.dropMenuDisabled}">
-							<b:inputText name="login" value="#{cMB.client.email}"/>
-							<b:inputSecret name="mdp" value="#{cMB.client.mdpClient}"/>
-							<b:navCommandLink value="Se connecter"
-								action="#{cMB.connecterClient}"/>
-					</b:dropMenu>
-				
-					</b:dropMenu>
-					<b:dropMenu value="Deco/Reco Admin"
+						action="${cMB.seDeconnecterClient}"></b:navCommandLink>
+					<b:navLink></b:navLink>
+					<b:inputText name="login" value="${cMB.client.email}" />
+					<b:inputSecret name="mdp" value="${cMB.client.mdpClient}" />
+					<b:navLink></b:navLink>
+					<b:navCommandLink value="Se connecter"
+						action="${cMB.connecterClient}" />
+					<b:navLink value="S'inscrire" href="inscription.xhtml"></b:navLink>
+				</b:dropMenu>
+				<b:dropMenu value="Deco/Reco Admin"
 					contentDisabled="#{navBarBean.dropMenuDisabled}">
-						<b:navCommandLink value="Deconnexion Admin"
-							action="#{adminMB.seDeconnecter}"></b:navCommandLink>
-						<b:dropMenu value="Connexion Admin"
-						contentDisabled="#{navBarBean.dropMenuDisabled}">
-							<b:inputText name="login"
-								value="#{adminMB.administrateur.mailAdmin}"/>
-							<b:inputSecret name="mdp" value="#{adminMB.administrateur.mdp}"/>
-							<b:navCommandLink value="Se connecter"
-								action="#{adminMB.seConnecter}"/>
-					</b:dropMenu>
-					</b:dropMenu>
+					<b:navCommandLink value="Deconnexion Admin"
+						action="${adminMB.seDeconnecter}"></b:navCommandLink>
+					<b:navLink></b:navLink>
+					<b:inputText name="loginAdmin"
+						value="${adminMB.administrateur.mailAdmin}" />
+					<b:inputSecret name="mdpAdmin"
+						value="${adminMB.administrateur.mdp}" />
+					<b:navLink></b:navLink>
+					<b:navCommandLink value="Connecter admin"
+						action="${adminMB.seConnecter}" />
+				</b:dropMenu>
 			</b:navbarLinks>
 		</b:navBar>
 
