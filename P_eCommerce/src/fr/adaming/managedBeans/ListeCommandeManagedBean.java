@@ -218,35 +218,29 @@ public class ListeCommandeManagedBean implements Serializable {
 		try {
 			commande.setIdCommande(panier.getListeLigneCommande().get(0).getCommande().getIdCommande());
 			coService.consulterCommandeParIDService(commande);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if ((Client) maSession.getAttribute("clientSession") != null) {
-			this.client = (Client) maSession.getAttribute("clientSession");
-			cService.consulterClientParIdService(client);
-			for (int i = 0; i < panier.getListeLigneCommande().size(); i++) {
-				try {
-					this.panier.getListeLigneCommande().get(i).getCommande().setClient(client);
-				} catch (Exception e) {
-					e.printStackTrace();
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Commande non validée"));
-					return "accueilproduit";
-				}
-			}
-			verif = 1;
-		} else {
-			try {
+			if ((Client) maSession.getAttribute("clientSession") != null) {
+				this.client = (Client) maSession.getAttribute("clientSession");
+				cService.consulterClientParIdService(client);
+
 				for (int i = 0; i < panier.getListeLigneCommande().size(); i++) {
 					this.panier.getListeLigneCommande().get(i).getCommande().setClient(client);
+					verif = 1;
 				}
-				cService.ajouterClientService(client, adresse);
-				maSession.setAttribute("panierSession", panier);
-				verif = 1;
-			} catch (Exception e) {
-				e.printStackTrace();
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pas de commandes en cour"));
-				return "accueilproduit";
+			} else {
+
+				for (int i = 0; i < panier.getListeLigneCommande().size(); i++) {
+					this.panier.getListeLigneCommande().get(i).getCommande().setClient(client);
+
+					cService.ajouterClientService(client, adresse);
+					maSession.setAttribute("panierSession", panier);
+					verif = 1;
+
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pas de commandes en cour"));
+			return "accueilproduit";
 		}
 
 		if (verif != 0) {
@@ -278,7 +272,6 @@ public class ListeCommandeManagedBean implements Serializable {
 			if (test < 0) {
 				verifQuantite = 0;
 			}
-
 		}
 
 		if (verifQuantite == 1) {
@@ -295,10 +288,6 @@ public class ListeCommandeManagedBean implements Serializable {
 					}
 					LigneCommande ligneCommandeIn = panier.getListeLigneCommande().get(i);
 					lcService.AjouterLigneCommandeService(ligneCommandeIn);
-					produit.setQuantite(produit.getQuantite() - panier.getListeLigneCommande().get(i).getQuantite());
-					admin.setIdAdmin(1);// C'est moche, mais c'est pour le
-										// test
-					pService.modifierProduitService(produit, admin);
 				}
 				coOut = coService.consulterCommandeParIDService(panier.getListeLigneCommande().get(0).getCommande());
 				message = "Bonjour Mme/Mr " + coOut.getClient().getNomClient()
@@ -308,6 +297,13 @@ public class ListeCommandeManagedBean implements Serializable {
 				try {
 					SendMailService sm = new SendMailService();
 					sm.sendMail(coOut.getClient().getEmail(), message);
+					for (int i = 0; i < panier.getListeLigneCommande().size(); i++) {
+						produit.setQuantite(
+								produit.getQuantite() - panier.getListeLigneCommande().get(i).getQuantite());
+						admin.setIdAdmin(1);// C'est moche, mais c'est pour le
+											// test
+						pService.modifierProduitService(produit, admin);
+					}
 					this.panier = new Panier();
 					panier.setListeLigneCommande(new ArrayList<>());
 					maSession.setAttribute("panierSession", panier);
@@ -318,11 +314,6 @@ public class ListeCommandeManagedBean implements Serializable {
 							new FacesMessage("message non envoyé, annulation validation commande"));
 					for (int i = 0; i < panier.getListeLigneCommande().size(); i++) {
 						lcService.supprimerLigneCommandeService(panier.getListeLigneCommande().get(i));
-						produit.setQuantite(
-								produit.getQuantite() + panier.getListeLigneCommande().get(i).getQuantite());
-						admin.setIdAdmin(1);// C'est moche, mais c'est pour le
-											// test
-						pService.modifierProduitService(produit, admin);
 					}
 					coService.supprimerCommandeService(coOut);
 					this.panier = new Panier();
@@ -338,11 +329,6 @@ public class ListeCommandeManagedBean implements Serializable {
 				try {
 					for (int i = 0; i < panier.getListeLigneCommande().size(); i++) {
 						lcService.supprimerLigneCommandeService(panier.getListeLigneCommande().get(i));
-						produit.setQuantite(
-								produit.getQuantite() + panier.getListeLigneCommande().get(i).getQuantite());
-						admin.setIdAdmin(1);// C'est moche, mais c'est pour le
-											// test
-						pService.modifierProduitService(produit, admin);
 					}
 					coService.supprimerCommandeService(coOut);
 				} catch (Exception e2) {
